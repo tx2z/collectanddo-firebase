@@ -1,0 +1,7 @@
+{
+  "name": "collectanddo-firebase",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
