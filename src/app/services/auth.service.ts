@@ -4,6 +4,8 @@ import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,59 +13,75 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 export class AuthService {
   userData: User;
+  authState = new BehaviorSubject(false);
 
   constructor(
     public afStore: AngularFirestore,
-    public ngFireAuth: AngularFireAuth,
+    public firebaseAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private storage: Storage
   ) {
-    this.ngFireAuth.authState.subscribe(user => {
+    this.firebaseAuth.authState.subscribe(user => {
       if (user) {
+        console.log(user);
         this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
+        storage.set('user', JSON.stringify(this.userData));
+        // JSON.parse(localStorage.getItem('user'));
+        this.authState.next(true);
       } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
+        this.authState.next(false);
+        storage.set('user', null);
+        // JSON.parse(localStorage.getItem('user'));
+        this.authState.next(false);
       }
     });
   }
 
   // Login in with email/password
-  SignIn(email: string, password: string) {
-    return this.ngFireAuth.auth.signInWithEmailAndPassword(email, password);
+  async SignIn(email: string, password: string, url: string) {
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    .then((result) => {
+      if (result.user.emailVerified) {
+        this.authState.next(true);
+        this.router.navigateByUrl(url);
+      } else {
+        window.alert('Email is not verified');
+        return false;
+      }
+    }).catch((error) => {
+      window.alert(error.message);
+    });
   }
 
   // Register user with email/password
   async RegisterUser(email: string, password: string) {
-    try {
-      const result = await this.ngFireAuth.auth.createUserWithEmailAndPassword(email, password);
-      this.ngZone.run(() => {
-        this.router.navigate(['']);
-      });
+    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+    .then((result) => {
       this.SetUserData(result.user);
-    } catch (error) {
-      window.alert(error);
-    }
+      this.SendVerificationMail();
+    }).catch((error) => {
+      window.alert(error.message);
+    });
   }
 
   // Email verification when new user register
   async SendVerificationMail() {
-    await this.ngFireAuth.auth.currentUser.sendEmailVerification();
+    await this.firebaseAuth.auth.currentUser.sendEmailVerification();
     this.router.navigate(['start/register/verify-email']);
   }
 
   // Recover password
   async PasswordRecover(passwordResetEmail: string) {
     try {
-      await this.ngFireAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+      await this.firebaseAuth.auth.sendPasswordResetEmail(passwordResetEmail);
       window.alert('Password reset email has been sent, please check your inbox.');
     } catch (error) {
       window.alert(error);
     }
   }
 
+  /*
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -75,7 +93,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user.emailVerified !== false) ? true : false;
   }
-
+*/
   // Sign in with Gmail
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider());
@@ -84,11 +102,12 @@ export class AuthService {
   // Auth providers
   async AuthLogin(provider) {
     try {
-      const result = await this.ngFireAuth.auth.signInWithPopup(provider);
+      const result = await this.firebaseAuth.auth.signInWithPopup(provider);
       this.ngZone.run(() => {
         this.router.navigate(['']);
       });
       this.SetUserData(result.user);
+      this.authState.next(true);
     } catch (error) {
       window.alert(error);
     }
@@ -111,9 +130,14 @@ export class AuthService {
 
   // Sign-out
   async SignOut() {
-    await this.ngFireAuth.auth.signOut();
+    await this.firebaseAuth.auth.signOut();
     localStorage.removeItem('user');
+    this.authState.next(false);
     this.router.navigate(['start/login']);
+  }
+
+  isAuthenticated() {
+    return this.authState.value;
   }
 
 }

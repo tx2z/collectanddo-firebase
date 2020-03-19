@@ -1,7 +1,8 @@
 {
   "name": "collectanddo-firebase",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular",
   "id": "7937f050"
