@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginPage implements OnInit {
 
-  return = '';
+  private returnURL = '';
 
   constructor(
     private authService: AuthService,
@@ -20,11 +20,11 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     // Get the query params
     this.route.queryParams
-      .subscribe(params => this.return = params.return || '');
+      .subscribe(params => this.returnURL = params.return || '');
   }
 
   logIn(email, password) {
-    return this.authService.SignIn(email.value, password.value, this.return);
+    return this.authService.SignIn(email.value, password.value, this.returnURL);
   }
 
   recoverPassword(email) {
