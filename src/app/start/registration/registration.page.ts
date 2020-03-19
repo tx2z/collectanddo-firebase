@@ -16,14 +16,7 @@ export class RegistrationPage {
   ) { }
 
   signUp(email, password) {
-    this.authService.RegisterUser(email.value, password.value)
-    .then((res) => {
-      // Do something here
-      this.authService.SendVerificationMail();
-      this.router.navigate(['start/register/verify-email']);
-    }).catch((error) => {
-      window.alert(error.message);
-    });
+    this.authService.RegisterUser(email.value, password.value);
   }
 
 }

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">collectanddo-firebase</string>
+    <string name="title_activity_main">collectanddo-firebase</string>
+    <string name="package_name">com.collectanddo.app</string>
+    <string name="custom_url_scheme">com.collectanddo.app</string>
+</resources>

@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
@@ -25,6 +26,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
