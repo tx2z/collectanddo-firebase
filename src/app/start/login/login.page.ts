@@ -14,7 +14,6 @@ export class LoginPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -25,15 +24,15 @@ export class LoginPage implements OnInit {
   }
 
   logIn(email, password) {
-    this.authService.SignIn(email.value, password.value, this.return);
+    return this.authService.SignIn(email.value, password.value, this.return);
   }
 
   recoverPassword(email) {
-    this.authService.PasswordRecover(email.value);
+    return this.authService.PasswordRecover(email.value);
   }
 
   logInGoogle() {
-    this.authService.GoogleAuth();
+    return this.authService.GoogleAuth();
   }
 
 }
