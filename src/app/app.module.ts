@@ -15,6 +15,10 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,6 +34,8 @@ import { environment } from '../environments/environment';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
+    AuthGuardService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFirestoreModule
   ],

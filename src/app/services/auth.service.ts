@@ -31,15 +31,8 @@ export class AuthService {
   }
 
   // Login in with email/password
-  async SignIn(email: string, password: string) {
-    try {
-      const result = await this.ngFireAuth.auth.signInWithEmailAndPassword(email, password);
-      this.ngZone.run(() => {
-        this.router.navigate(['']);
-      });
-    } catch (error) {
-      window.alert(error);
-    }
+  SignIn(email: string, password: string) {
+    return this.ngFireAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
   // Register user with email/password
@@ -58,7 +51,7 @@ export class AuthService {
   // Email verification when new user register
   async SendVerificationMail() {
     await this.ngFireAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(['verify-email']);
+    this.router.navigate(['start/register/verify-email']);
   }
 
   // Recover password
@@ -120,7 +113,7 @@ export class AuthService {
   async SignOut() {
     await this.ngFireAuth.auth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['login']);
+    this.router.navigate(['start/login']);
   }
 
 }
