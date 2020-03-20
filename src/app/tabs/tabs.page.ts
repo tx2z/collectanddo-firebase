@@ -9,11 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TabsPage {
 
   constructor(
-    public authService: AuthService,
+    private authService: AuthService,
   ) {}
 
   logOut() {
-    this.authService.SignOut();
+    return this.authService.SignOut();
   }
 
 }
