@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegistrationPage {
 
   constructor(
-    public authService: AuthService,
-    public router: Router
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   signUp(email, password) {
