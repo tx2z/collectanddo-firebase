@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>User information</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <div text-center>
+      <img src="{{ userInfo.photoURL }}" style="width:100%">
+    </div>
+
+    <ion-card-header>
+      <ion-card-subtitle>{{ userInfo.email }}</ion-card-subtitle>
+      <ion-card-title>
+        <ion-input type="text" #displayName value="{{ userInfo.displayName }}" required></ion-input>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-button expand="block" color="danger" (click)="logOut()">
+        Log Out
+        <ion-icon slot="end" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

@@ -89,18 +89,30 @@ export class AuthService {
   }
 
   // Store user is store and firebase
-  SetUserData(user: User) {
-    const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${user.uid}`);
+  SetUserData(user: User, update = false) {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName || user.email,
-      photoURL: user.photoURL || '',
       emailVerified: user.emailVerified
     };
-    this.storage.set('user', JSON.stringify(userData));
-    return userRef.set(userData, {
-      merge: true
+    if (user.displayName) {
+      userData.displayName = user.displayName;
+    }
+    if (user.photoURL) {
+      userData.photoURL = user.photoURL;
+    }
+
+    // recover user from firestone
+    const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${user.uid}`);
+
+    return userRef.ref.get().then(doc => {
+      if (!doc.exists || update) {
+        // if doesn't exist create user in firebase
+        userRef.set(userData);
+      }
+      this.storage.set('user', JSON.stringify(doc.data()));
+    }).catch(error => {
+      window.alert(error.message || error);
     });
   }
 

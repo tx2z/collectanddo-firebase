@@ -1,20 +1,23 @@
 <ion-tabs>
-
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="collect">
       <ion-icon name="triangle"></ion-icon>
       <ion-label>Collect</ion-label>
     </ion-tab-button>
-
     <ion-tab-button tab="do">
       <ion-icon name="ellipse"></ion-icon>
       <ion-label>Do</ion-label>
     </ion-tab-button>
-
   </ion-tab-bar>
-
 </ion-tabs>
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="logOut()">
+
+<ion-fab *ngIf="user" vertical="top" horizontal="end" slot="fixed" (click)="userModal()">
+  <ion-fab-button>
+    <img src="{{ user.photoURL }}">
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
     <ion-icon name="log-out-outline"></ion-icon>
   </ion-fab-button>
