@@ -19,7 +19,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
