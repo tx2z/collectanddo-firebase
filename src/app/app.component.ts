@@ -4,6 +4,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { toggleDarkTheme } from 'src/app/generics/theme.functions';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -22,7 +24,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // Use matchMedia to check the user preference and add the correct mode
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-      document.body.classList.toggle('dark', prefersDark.matches);
+      toggleDarkTheme(prefersDark.matches);
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
