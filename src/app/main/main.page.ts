@@ -4,6 +4,7 @@ import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserPage } from 'src/app/configure/user/user.page';
 import { User } from 'src/app/models/user.model';
+import { setTheme } from 'src/app/generics/theme.functions';
 
 @Component({
   selector: 'app-main',
@@ -21,36 +22,16 @@ export class MainPage implements OnInit {
     private authService: AuthService,
   ) {}
 
-  ngOnInit() {
-    this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  }
+  ngOnInit() {}
 
   // Get user preferences every time we load the app
   ionViewWillEnter() {
     this.storage.get('user').then(userString => {
       this.user = JSON.parse(userString);
 
-      // Check preferred mode
-      switch (this.user.theme) {
-        case('dark'): {
-          this.toggleDarkTheme(true);
-          break;
-        }
-        case('light'): {
-          this.toggleDarkTheme(false);
-          break;
-        }
-        case('system'): {
-          // Listen for changes to the prefers-color-scheme media query
-          this.prefersDark.addListener((mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
-        }
-      }
+      // Apply the user theme
+      setTheme(this.user.theme);
     });
-  }
-
-  // Add or remove the dark theme based on if the media query matches
-  toggleDarkTheme(shouldAdd: boolean) {
-    document.body.classList.toggle('dark', shouldAdd);
   }
 
   // Configure user options modal

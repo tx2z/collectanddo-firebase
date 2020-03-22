@@ -1,7 +1,8 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { ModalController, NavParams, IonInput } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/user.model';
+import { User, Theme } from 'src/app/models/user.model';
+import { setTheme } from 'src/app/generics/theme.functions';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +12,7 @@ import { User } from 'src/app/models/user.model';
 export class UserPage implements OnInit {
   @Input() userInfo: User;
   @ViewChild('displayName') displayName: IonInput;
-  toggleStatus = false;
+  private theme: Theme;
 
   constructor(
     private modalController: ModalController,
@@ -19,21 +20,18 @@ export class UserPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (document.body.classList.contains('dark')) {
-      this.toggleStatus = true;
-    }
+    this.theme = this.userInfo.theme;
   }
 
   async dismiss() {
     this.userInfo.displayName = this.displayName.value as string;
-    // TODO: Add system option
-    this.userInfo.theme = this.toggleStatus ? 'dark' : 'light';
+    this.userInfo.theme = this.theme;
     await this.modalController.dismiss(this.userInfo);
   }
 
   toggleMode(event) {
-    this.toggleStatus = event.detail.checked;
-    document.body.classList.toggle('dark', event.detail.checked);
+    this.theme = event.detail.value;
+    setTheme(this.theme);
   }
 
   async logOut() {

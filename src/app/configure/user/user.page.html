@@ -27,12 +27,25 @@
           <ion-label>
             Toggle Dark Theme
           </ion-label>
-          <ion-toggle [checked]="toggleStatus" (ionChange)="toggleMode($event)" slot="end"></ion-toggle>
+          <ion-segment (ionChange)="toggleMode($event)" slot="end" [value]="userInfo.theme" >
+            <ion-segment-button value="system">
+              <ion-label>System</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="light">
+              <ion-label>Light</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="dark">
+              <ion-label>Dark</ion-label>
+            </ion-segment-button>
+          </ion-segment>
         </ion-item>
         <ion-item lines="full">
-          <ion-button expand="block" color="danger" (click)="logOut()">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          <ion-label>
+            Exit app
+          </ion-label>
+          <ion-button expand="block" color="danger" (click)="logOut()" slot="end">
             Log Out
-            <ion-icon slot="end" name="log-out-outline"></ion-icon>
           </ion-button>
         </ion-item>
       </ion-list>

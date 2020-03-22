@@ -4,5 +4,7 @@ export class User {
     emailVerified: boolean;
     displayName?: string;
     photoURL?: string;
-    theme?: 'light' | 'dark' | 'system';
+    theme?: Theme;
 }
+
+export type Theme = 'light' | 'dark' | 'system';
