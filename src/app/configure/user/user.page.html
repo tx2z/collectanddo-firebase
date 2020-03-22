@@ -9,22 +9,33 @@
 
 <ion-content>
   <ion-card>
-    <div text-center>
+    <div class="ion-text-center">
       <img src="{{ userInfo.photoURL }}" style="width:100%">
     </div>
 
     <ion-card-header>
       <ion-card-subtitle>{{ userInfo.email }}</ion-card-subtitle>
       <ion-card-title>
-        <ion-input type="text" #displayName value="{{ userInfo.displayName }}" required></ion-input>
+        <ion-input type="text" #displayName value="{{ userInfo.displayName }}" placeholder="Your name..." required></ion-input>
       </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-button expand="block" color="danger" (click)="logOut()">
-        Log Out
-        <ion-icon slot="end" name="log-out-outline"></ion-icon>
-      </ion-button>
+      <ion-list>
+        <ion-item lines="full">
+          <ion-icon slot="start" name="moon"></ion-icon>
+          <ion-label>
+            Toggle Dark Theme
+          </ion-label>
+          <ion-toggle [checked]="toggleStatus" (ionChange)="toggleMode($event)" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-button expand="block" color="danger" (click)="logOut()">
+            Log Out
+            <ion-icon slot="end" name="log-out-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
 
   </ion-card>

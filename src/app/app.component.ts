@@ -20,6 +20,10 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      // Use matchMedia to check the user preference and add the correct mode
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+      document.body.classList.toggle('dark', prefersDark.matches);
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

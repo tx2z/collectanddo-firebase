@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate {
       map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
-          this.router.navigate(['start/login'], {
+          this.router.navigate(['auth/login'], {
             queryParams: {
               return: state.url
             }

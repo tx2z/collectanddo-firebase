@@ -30,7 +30,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence(),
   ],
   providers: [
     StatusBar,
@@ -38,7 +38,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
     AuthService,
     AuthGuardService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   bootstrap: [AppComponent]
 })
