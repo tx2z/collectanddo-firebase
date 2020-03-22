@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserPage {
   @Input() userInfo: User;
-  @ViewChild('displayName', {static: false}) displayName: IonInput;
+  @ViewChild('displayName') displayName: IonInput;
 
   constructor(
     private modalController: ModalController,
