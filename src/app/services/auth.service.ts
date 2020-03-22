@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { auth } from 'firebase/app';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
@@ -16,7 +16,6 @@ export class AuthService {
   user: Observable<any>;
 
   constructor(
-    private ngZone: NgZone,
     private router: Router,
     private storage: Storage,
     private firebaseStorage: AngularFirestore,
@@ -39,8 +38,7 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then(result => {
         if (result.user.emailVerified) {
-          this.SetUserData(result.user);
-          this.router.navigateByUrl(url);
+          this.SetUserData(result.user).then(() => this.router.navigateByUrl(url));
         } else {
           window.alert('Email is not verified');
           return false;
@@ -60,7 +58,7 @@ export class AuthService {
   async SendVerificationMail() {
     return this.firebaseAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
-        this.router.navigate(['start/register/verify-email']);
+        this.router.navigate(['auth/register/verify-email']);
       }).catch(error => this.handleError(error));
   }
 
@@ -81,19 +79,17 @@ export class AuthService {
   async AuthLogin(provider) {
     return this.firebaseAuth.auth.signInWithPopup(provider)
       .then(result => {
-        this.ngZone.run(() => {
-          this.router.navigate(['']);
-        });
-        this.SetUserData(result.user);
+        this.SetUserData(result.user).then(() => this.router.navigate(['']));
       }).catch(error => this.handleError(error));
   }
 
   // Store user is store and firebase
-  SetUserData(user: User, update = false) {
+  async SetUserData(user: User, update = false) {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      emailVerified: user.emailVerified
+      emailVerified: user.emailVerified,
+      theme: 'system'
     };
     if (user.displayName) {
       userData.displayName = user.displayName;
@@ -101,16 +97,20 @@ export class AuthService {
     if (user.photoURL) {
       userData.photoURL = user.photoURL;
     }
+    if (user.theme) {
+      userData.theme = user.theme;
+    }
 
     // recover user from firestone
     const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${user.uid}`);
 
-    return userRef.ref.get().then(doc => {
+    return userRef.ref.get().then(async doc => {
       if (!doc.exists || update) {
         // if doesn't exist create user in firebase
-        userRef.set(userData);
+        userRef.set({userData}, { merge: true });
       }
-      this.storage.set('user', JSON.stringify(doc.data()));
+      await this.storage.set('user', JSON.stringify(doc.data().userData));
+      return;
     }).catch(error => {
       window.alert(error.message || error);
     });
@@ -120,8 +120,7 @@ export class AuthService {
   async SignOut() {
     return this.firebaseAuth.auth.signOut()
     .then(() => {
-      this.storage.set('user', null);
-      this.router.navigate(['start/login']);
+      this.storage.set('user', null).then(() => this.router.navigate(['auth/login']));
     }).catch((error) => {
       window.alert(error.message || error);
     });

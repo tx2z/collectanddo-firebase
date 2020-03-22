@@ -4,4 +4,5 @@ export class User {
     emailVerified: boolean;
     displayName?: string;
     photoURL?: string;
+    theme?: 'light' | 'dark' | 'system';
 }

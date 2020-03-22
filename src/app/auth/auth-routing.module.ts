@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { StartPage } from './start.page';
+import { AuthPage } from './auth.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: StartPage,
+    component: AuthPage,
     children: [
       {
         path: 'login',
@@ -34,14 +34,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/start/login',
+        redirectTo: '/auth/login',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/start/login',
+    redirectTo: '/auth/login',
     pathMatch: 'full'
   }
 ];
@@ -50,4 +50,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class StartPageRoutingModule {}
+export class AuthPageRoutingModule {}

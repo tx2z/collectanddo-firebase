@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { TabsPageRoutingModule } from './tabs-routing.module';
+import { MainPageRoutingModule } from './main-routing.module';
 
-import { TabsPage } from './tabs.page';
+import { MainPage } from './main.page';
 import { UserPageModule } from 'src/app/configure/user/user.module';
 
 @NgModule({
@@ -13,9 +13,9 @@ import { UserPageModule } from 'src/app/configure/user/user.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule,
+    MainPageRoutingModule,
     UserPageModule
   ],
-  declarations: [TabsPage]
+  declarations: [MainPage]
 })
-export class TabsPageModule {}
+export class MainPageModule {}
