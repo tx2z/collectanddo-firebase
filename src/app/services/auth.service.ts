@@ -83,7 +83,7 @@ export class AuthService {
       }).catch(error => this.handleError(error));
   }
 
-  // Store user is store and firebase
+  // Store user in storage and firebase
   async SetUserData(user: User, update = false) {
     const userData: User = {
       uid: user.uid,
@@ -107,9 +107,11 @@ export class AuthService {
     return userRef.ref.get().then(async doc => {
       if (!doc.exists || update) {
         // if doesn't exist create user in firebase
-        userRef.set({userData}, { merge: true });
+        await userRef.set(userData, { merge: true });
+        await this.storage.set('user', JSON.stringify(userData));
+      } else {
+        await this.storage.set('user', JSON.stringify(doc.data()));
       }
-      await this.storage.set('user', JSON.stringify(doc.data().userData));
       return;
     }).catch(error => {
       window.alert(error.message || error);
