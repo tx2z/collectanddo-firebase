@@ -18,6 +18,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { CollectService } from 'src/app/services/collect.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +40,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
     AuthGuardService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFirestoreModule,
+    CollectService,
   ],
   bootstrap: [AppComponent]
 })

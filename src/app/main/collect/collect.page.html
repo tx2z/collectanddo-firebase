@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Collect
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,5 +13,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  hola
+  <ul class="collection__list" *ngIf="(collections$ | async).length">
+    <li class="collection" *ngFor="let collection of collections$ | async">
+        {{ collection.test }}
+    </li>
+</ul>
 </ion-content>
