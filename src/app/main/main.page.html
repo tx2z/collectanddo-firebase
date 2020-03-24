@@ -11,9 +11,9 @@
   </ion-tab-bar>
 </ion-tabs>
 
-<ion-fab *ngIf="user" vertical="top" horizontal="end" slot="fixed" (click)="userModal()">
+<ion-fab *ngIf="user$ | async as user" vertical="top" horizontal="end" slot="fixed" (click)="userModal()">
   <ion-fab-button>
-    <img src="{{ user.photoURL }}">
+    <img *ngIf="user.photoURL" src="{{ user.photoURL }}">
   </ion-fab-button>
 </ion-fab>
 

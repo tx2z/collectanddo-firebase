@@ -6,7 +6,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private storage: Storage,
     private firebaseStorage: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
   ) {
@@ -108,24 +106,16 @@ export class AuthService {
       if (!doc.exists || update) {
         // if doesn't exist create user in firebase
         await userRef.set(userData, { merge: true });
-        await this.storage.set('user', JSON.stringify(userData));
-      } else {
-        await this.storage.set('user', JSON.stringify(doc.data()));
       }
       return;
-    }).catch(error => {
-      window.alert(error.message || error);
-    });
+    }).catch(error => window.alert(error.message || error));
   }
 
   // Sign-out
   async SignOut() {
     return this.firebaseAuth.signOut()
-    .then(() => {
-      this.storage.set('user', null).then(() => this.router.navigate(['auth/login']));
-    }).catch((error) => {
-      window.alert(error.message || error);
-    });
+    .then(() => this.router.navigate(['auth/login']))
+    .catch(error => window.alert(error.message || error));
   }
 
   // If error, console log and notify user
