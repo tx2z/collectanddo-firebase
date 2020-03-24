@@ -6,10 +6,10 @@ import { setTheme } from 'src/app/generics/theme.functions';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class UserPage implements OnInit {
+export class UserComponent implements OnInit {
   @Input() userInfo: User;
   @ViewChild('displayName') displayName: IonInput;
   private theme: Theme;

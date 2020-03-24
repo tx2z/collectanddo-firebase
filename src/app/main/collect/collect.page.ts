@@ -17,16 +17,14 @@ export class CollectPage implements OnInit {
   constructor(
     private storage: Storage,
     private firebaseStorage: AngularFirestore,
-  ) {
-      this.storage.get('user').then((userString) => {
-        this.user = JSON.parse(userString);
-        const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${this.user.uid}`);
-        this.collections$ = userRef.collection<Collection>('collections').valueChanges();
-      });
-
-  }
+  ) { }
 
   ngOnInit() {
+    this.storage.get('user').then((userString) => {
+      this.user = JSON.parse(userString);
+      const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${this.user.uid}`);
+      this.collections$ = userRef.collection<Collection>('collections').valueChanges();
+    });
   }
 
 }

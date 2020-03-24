@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MainPageRoutingModule } from './main-routing.module';
 
 import { MainPage } from './main.page';
-import { UserPageModule } from 'src/app/configure/user/user.module';
+import { UserComponentModule } from 'src/app/main/components/user/user.module';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { UserPageModule } from 'src/app/configure/user/user.module';
     CommonModule,
     FormsModule,
     MainPageRoutingModule,
-    UserPageModule
+    UserComponentModule
   ],
   declarations: [MainPage]
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserPage } from 'src/app/configure/user/user.page';
+import { UserComponent } from 'src/app/main/components/user/user.component';
 import { User } from 'src/app/models/user.model';
 import { setTheme } from 'src/app/generics/theme.functions';
 
@@ -38,7 +38,7 @@ export class MainPage implements OnInit {
   async userModal() {
     const userInfo = JSON.parse(JSON.stringify(this.user));
     const modal = await this.modalController.create({
-      component: UserPage,
+      component: UserComponent,
       componentProps: {
         userInfo,
       },
