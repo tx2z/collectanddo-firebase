@@ -35,7 +35,7 @@ export class AuthService {
 
   // Login in with email/password
   async SignIn(email: string, password: string, url: string) {
-    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    return this.firebaseAuth.signInWithEmailAndPassword(email, password)
       .then(result => {
         if (result.user.emailVerified) {
           this.SetUserData(result.user).then(() => this.router.navigateByUrl(url));
@@ -48,7 +48,7 @@ export class AuthService {
 
   // Register user with email/password
   async RegisterUser(email: string, password: string) {
-    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.firebaseAuth.createUserWithEmailAndPassword(email, password)
       .then(() => {
         this.SendVerificationMail();
       }).catch(error => this.handleError(error));
@@ -56,7 +56,7 @@ export class AuthService {
 
   // Email verification when new user register
   async SendVerificationMail() {
-    return this.firebaseAuth.auth.currentUser.sendEmailVerification()
+    return (await this.firebaseAuth.currentUser).sendEmailVerification()
       .then(() => {
         this.router.navigate(['auth/register/verify-email']);
       }).catch(error => this.handleError(error));
@@ -64,7 +64,7 @@ export class AuthService {
 
   // Recover password
   async PasswordRecover(passwordResetEmail: string) {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+    return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert('Password reset email has been sent, please check your inbox.');
       }).catch(error => this.handleError(error));
@@ -77,7 +77,7 @@ export class AuthService {
 
   // Auth providers
   async AuthLogin(provider) {
-    return this.firebaseAuth.auth.signInWithPopup(provider)
+    return this.firebaseAuth.signInWithPopup(provider)
       .then(result => {
         this.SetUserData(result.user).then(() => this.router.navigate(['']));
       }).catch(error => this.handleError(error));
@@ -120,7 +120,7 @@ export class AuthService {
 
   // Sign-out
   async SignOut() {
-    return this.firebaseAuth.auth.signOut()
+    return this.firebaseAuth.signOut()
     .then(() => {
       this.storage.set('user', null).then(() => this.router.navigate(['auth/login']));
     }).catch((error) => {
