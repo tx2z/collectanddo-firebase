@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectService } from 'src/app/services/collect.service';
 import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Storage } from '@ionic/storage';
+import { User } from 'src/app/models/user.model';
+import { Collection } from 'src/app/models/collection.model';
 
 @Component({
   selector: 'app-collect',
@@ -8,14 +11,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['collect.page.scss']
 })
 export class CollectPage implements OnInit {
-  private collections$: Observable<any>;
+  collections$: Observable<any[]>;
+  private user: User;
 
   constructor(
-    private collectService: CollectService
-  ) {}
+    private storage: Storage,
+    private firebaseStorage: AngularFirestore,
+  ) {
+      this.storage.get('user').then((userString) => {
+        this.user = JSON.parse(userString);
+        const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${this.user.uid}`);
+        this.collections$ = userRef.collection<Collection>('collections').valueChanges();
+      });
+
+  }
 
   ngOnInit() {
-    this.collections$ = this.collectService.getCollections();
   }
 
 }
