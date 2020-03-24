@@ -14,9 +14,9 @@
   </ion-header>
 
   hola
-  <ul class="collection__list" *ngIf="(collections$ | async).length">
+  <ul class="collection__list">
     <li class="collection" *ngFor="let collection of collections$ | async">
-        {{ collection.test }}
+        {{ collection.title }}
     </li>
 </ul>
 </ion-content>

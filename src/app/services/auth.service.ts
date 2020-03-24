@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 })
 
 export class AuthService {
-  user: Observable<any>;
+  user$: Observable<any>;
 
   constructor(
     private router: Router,
@@ -22,7 +22,7 @@ export class AuthService {
     private firebaseAuth: AngularFireAuth,
   ) {
     // Get auth data, then get firestore user document || null
-    this.user = this.firebaseAuth.authState.pipe(
+    this.user$ = this.firebaseAuth.authState.pipe(
       switchMap(user => {
         if (user) {
           return this.firebaseStorage.doc(`users/${user.uid}`).valueChanges();
