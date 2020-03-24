@@ -7,16 +7,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="user$ | async as user">
   <ion-card>
     <div class="ion-text-center">
-      <img src="{{ userInfo.photoURL }}" style="width:100%">
+      <img *ngIf="user.photoURL" src="{{ user.photoURL }}" style="width:100%">
     </div>
 
     <ion-card-header>
-      <ion-card-subtitle>{{ userInfo.email }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ user.email }}</ion-card-subtitle>
       <ion-card-title>
-        <ion-input type="text" #displayName value="{{ userInfo.displayName }}" placeholder="Your name..." required></ion-input>
+        <ion-input
+          #displayName
+          type="text"
+          value="{{ user.displayName }}"
+          placeholder="Your name..."
+          (ionBlur)="changeDisplayName()"
+          debounce="2000"></ion-input>
       </ion-card-title>
     </ion-card-header>
 
@@ -27,7 +33,7 @@
           <ion-label>
             Toggle Dark Theme
           </ion-label>
-          <ion-segment (ionChange)="toggleMode($event)" slot="end" [value]="userInfo.theme" >
+          <ion-segment (ionChange)="toggleMode($event)" slot="end" [value]="user.theme" >
             <ion-segment-button value="system">
               <ion-label>System</ion-label>
             </ion-segment-button>
