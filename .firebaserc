@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "collectanddo": {
+      "hosting": {
+        "app": [
+          "collectanddo"
+        ]
+      }
+    }
+  }
+}
