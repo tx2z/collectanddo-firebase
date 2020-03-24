@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 })
 
 export class AuthService {
-  user$: Observable<any>;
+  user$: Observable<User>;
 
   constructor(
     private router: Router,
