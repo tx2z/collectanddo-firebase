@@ -16,14 +16,14 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private firebaseStorage: AngularFirestore,
+    private firebaseFirestone: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
   ) {
     // Get auth data, then get firestore user document || null
     this.user$ = this.firebaseAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.firebaseStorage.doc(`users/${user.uid}`).valueChanges();
+          return this.firebaseFirestone.doc(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -100,7 +100,7 @@ export class AuthService {
     }
 
     // recover user from firestone
-    const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.firebaseFirestone.doc(`users/${user.uid}`);
 
     return userRef.ref.get().then(async doc => {
       if (!doc.exists || update) {

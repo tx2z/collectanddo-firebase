@@ -13,7 +13,7 @@
 
 <ion-fab *ngIf="user$ | async as user" vertical="top" horizontal="end" slot="fixed" (click)="userModal()">
   <ion-fab-button>
-    <img *ngIf="user.photoURL" src="{{ user.photoURL }}">
+    <img *ngIf="user.photoURL" src="{{ userImage || user.photoURL64 || user.photoURL }}">
   </ion-fab-button>
 </ion-fab>
 

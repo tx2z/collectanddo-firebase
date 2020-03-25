@@ -5,6 +5,7 @@ export class User {
     displayName?: string;
     photoURL?: string;
     theme?: Theme;
+    photoURL64?: string;
 }
 
 export type Theme = 'light' | 'dark' | 'system';

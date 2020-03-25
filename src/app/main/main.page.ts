@@ -4,7 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from 'src/app/main/components/user/user.component';
 import { User } from 'src/app/models/user.model';
 import { setTheme } from 'src/app/generics/theme.functions';
-import { Observable } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { delay, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,8 @@ import { Observable } from 'rxjs';
 })
 export class MainPage implements OnInit {
   user$: Observable<User>;
-  prefersDark: MediaQueryList;
+  userPrev: User;
+  userImage: string;
 
   constructor(
     private modalController: ModalController,
@@ -25,8 +27,25 @@ export class MainPage implements OnInit {
     this.user$ = this.authService.user$;
     this.user$.subscribe({
       next: (user) => {
-        // Apply the user theme
-        setTheme(user.theme);
+        if (user) {
+          // Apply the user theme
+          if (this.userPrev?.theme !== user.theme) {
+            console.log('Change theme');
+            setTheme(user.theme);
+          }
+          // Add user image. Give it 5 seconds to generate
+          if (user.photoURL64 && this.userPrev?.photoURL64 !== user.photoURL64) {
+            console.log('change image');
+            setTimeout(() => {
+              this.userImage = user.photoURL64;
+            }, 5000);
+          }
+          // Save info to check against next time
+          this.userPrev = user;
+        } else {
+          this.userPrev = null;
+          this.userImage = null;
+        }
       },
     });
   }

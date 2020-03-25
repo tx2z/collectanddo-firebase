@@ -1,0 +1,47 @@
+<img *ngIf="image" src="{{ image }}" style="width:100%">
+
+<div *ngIf="!isUploading">
+  <div class="fileUpload btn btn-primary">
+    <span>Upload</span>
+    <input
+      id="uploadBtn"
+      type="file"
+      class="upload"
+      (change)="uploadFile($event.target.files)"
+    />
+  </div>
+</div>
+
+
+<div *ngIf="isUploading">
+  <div *ngIf="uploadPercentage$ | async as percentage">
+    Progress: {{ percentage | number }}%
+    <ion-progress-bar value="{{ percentage / 100 }}"></ion-progress-bar>
+  </div>
+  <div *ngIf="uploadSnapshot$ | async as snapshot">
+    File Size: {{ snapshot.totalBytes | fileSizePipe }} Transfered:
+    {{ snapshot.bytesTransferred | fileSizePipe }}
+    <div *ngIf="uploadSnapshot$ && snapshot.bytesTransferred != snapshot.totalBytes">
+      <ion-button
+        color="warning"
+        size="small"
+        (click)="uploadTask.pause()"
+        class="button is-warning"
+        >Pause</ion-button
+      >
+      <ion-button
+        size="small"
+        (click)="uploadTask.resume()"
+        class="button is-info"
+        >Resume</ion-button
+      >
+      <ion-button
+        color="danger"
+        size="small"
+        (click)="uploadTask.cancel()"
+        class="button is-danger"
+        >Cancel</ion-button
+      >
+    </div>
+  </div>
+</div>
