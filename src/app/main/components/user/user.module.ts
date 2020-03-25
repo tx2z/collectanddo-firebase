@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { UserComponent } from './user.component';
+import { ImageUploadComponentModule } from '../image-upload/image-upload.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ImageUploadComponentModule,
   ],
   declarations: [UserComponent]
 })

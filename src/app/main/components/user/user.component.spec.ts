@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { ImageUploadComponentModule } from '../image-upload/image-upload.module';
 
 import { UserComponent } from './user.component';
 
@@ -10,7 +11,7 @@ describe('UserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UserComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), ImageUploadComponentModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserComponent);

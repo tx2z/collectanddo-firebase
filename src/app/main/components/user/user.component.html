@@ -10,7 +10,12 @@
 <ion-content *ngIf="user$ | async as user">
   <ion-card>
     <div class="ion-text-center">
-      <img *ngIf="user.photoURL" src="{{ user.photoURL }}" style="width:100%">
+      <app-image-upload 
+        [image]="user.photoURL"
+        imageType="user.photoURL"
+        forceName="userPhotoURL"
+        (notify)="changePhotoUrl($event)"
+      ></app-image-upload>
     </div>
 
     <ion-card-header>
@@ -20,7 +25,7 @@
           #displayName
           type="text"
           value="{{ user.displayName }}"
-          placeholder="Your name..."
+          placeholder="Tell me your name..."
           (ionBlur)="changeDisplayName()"
           debounce="2000"></ion-input>
       </ion-card-title>

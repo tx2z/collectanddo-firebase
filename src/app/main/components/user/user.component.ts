@@ -13,7 +13,6 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 })
 export class UserComponent implements OnInit {
   user$: Observable<User>;
-  userInfo: User;
   private userRef: AngularFirestoreDocument<any>;
 
   @ViewChild('displayName') displayName: IonInput;
@@ -21,15 +20,18 @@ export class UserComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private authService: AuthService,
-    private firebaseStorage: AngularFirestore,
+    private firebaseFirestone: AngularFirestore,
   ) { }
 
   ngOnInit() {
     this.user$ = this.authService.user$;
     this.user$.subscribe({
       next: (user) => {
-        this.userInfo = user;
-        this.userRef = this.firebaseStorage.doc(`users/${this.userInfo.uid}`);
+        if (user) {
+          this.userRef = this.firebaseFirestone.doc(`users/${user.uid}`);
+        } else {
+          this.userRef = null;
+        }
       },
     });
   }
@@ -47,6 +49,12 @@ export class UserComponent implements OnInit {
   changeDisplayName() {
     const displayName = this.displayName.value as string;
     this.userRef.set({displayName}, { merge: true });
+  }
+
+  changePhotoUrl(photoURL) {
+    const fileExtension = photoURL.slice((Math.max(0, photoURL.lastIndexOf('.')) || Infinity) + 1);
+    const photoURL64 = photoURL.replace(`.${fileExtension}`, `_64x64.${fileExtension}`);
+    this.userRef.set({photoURL, photoURL64}, { merge: true });
   }
 
   async logOut() {

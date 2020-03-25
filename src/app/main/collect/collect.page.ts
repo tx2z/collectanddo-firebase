@@ -13,7 +13,7 @@ export class CollectPage implements OnInit {
   collections$: Observable<any[]>;
 
   constructor(
-    private firebaseStorage: AngularFirestore,
+    private firebaseFirestone: AngularFirestore,
     private authService: AuthService,
   ) { }
 
@@ -21,7 +21,7 @@ export class CollectPage implements OnInit {
     this.authService.user$.subscribe({
       next: (user) => {
         if (user) {
-          const userRef: AngularFirestoreDocument<any> = this.firebaseStorage.doc(`users/${user.uid}`);
+          const userRef: AngularFirestoreDocument<any> = this.firebaseFirestone.doc(`users/${user.uid}`);
           this.collections$ = userRef.collection<Collection>('collections').valueChanges();
         }
       },
