@@ -4,8 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from 'src/app/main/components/user/user.component';
 import { User } from 'src/app/models/user.model';
 import { setTheme } from 'src/app/generics/theme.functions';
-import { Observable, from, of } from 'rxjs';
-import { delay, concatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ActionSheetController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-main',
@@ -21,6 +22,7 @@ export class MainPage implements OnInit {
     private modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
     private authService: AuthService,
+    private actionSheetController: ActionSheetController,
   ) { }
 
   ngOnInit() {
@@ -30,12 +32,10 @@ export class MainPage implements OnInit {
         if (user) {
           // Apply the user theme
           if (this.userPrev?.theme !== user.theme) {
-            console.log('Change theme');
             setTheme(user.theme);
           }
           // Add user image. Give it 5 seconds to generate
           if (user.photoURL64 && this.userPrev?.photoURL64 !== user.photoURL64) {
-            console.log('change image');
             setTimeout(() => {
               this.userImage = user.photoURL64;
             }, 5000);
@@ -58,6 +58,47 @@ export class MainPage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  // Add new element
+  async addNewActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Add new...',
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+        }
+      }, {
+        text: 'Share',
+        icon: 'share',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Play (open modal)',
+        icon: 'arrow-dropright-circle',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      }, {
+        text: 'Favorite',
+        icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }

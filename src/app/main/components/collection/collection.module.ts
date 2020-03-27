@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ImageUploadComponent } from './image-upload.component';
-import { FileSizeFormatPipe } from './file-size-format.pipe';
+import { CollectionComponent } from './collection.component';
 
 @NgModule({
   imports: [
@@ -14,11 +13,10 @@ import { FileSizeFormatPipe } from './file-size-format.pipe';
     IonicModule,
   ],
   declarations: [
-    ImageUploadComponent,
-    FileSizeFormatPipe,
+    CollectionComponent,
   ],
   exports: [
-    ImageUploadComponent,
+    CollectionComponent,
   ]
 })
-export class ImageUploadComponentModule {}
+export class CollectionComponentModule {}
