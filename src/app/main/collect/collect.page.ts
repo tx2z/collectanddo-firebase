@@ -49,10 +49,9 @@ export class CollectPage implements OnInit, OnDestroy {
   }
 
   async findNext($event) {
-    console.log('infinyte');
     if (!this.allCollectionsLoaded) {
       setTimeout(async () => {
-        await this.collectionService.find(this.collectionQueryOptions);
+        this.collectionService.find(this.collectionQueryOptions);
         $event.target.complete();
       }, 500);
     } else {
