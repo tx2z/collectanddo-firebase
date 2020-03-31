@@ -14,7 +14,12 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('./collect/collect.module').then(m => m.CollectPageModule)
-          }
+          },
+          {
+            path: 'all',
+            loadChildren: () =>
+              import('./collect-all/collect-all.module').then( m => m.CollectAllPageModule)
+          },
         ]
       },
       {

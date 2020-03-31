@@ -6,7 +6,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
   QueryFn } from '@angular/fire/firestore';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription, Observable, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { firestore } from 'firebase/app';
@@ -22,6 +22,7 @@ export class CollectionService {
   private paginationSubscription: Subscription;
   private findSubscription: Subscription;
   private userRef: AngularFirestoreDocument<any>;
+  private reorderCollecPage = new Subject<string>();
 
   constructor(
     private firebaseFirestone: AngularFirestore,
@@ -124,6 +125,14 @@ export class CollectionService {
       // Hack to save the timestamp in negative format to order elements
       updatedDesc: -1 * (new Date().getTime()),
     });
+  }
+
+  listenReorderCollecPage(): Observable<any> {
+    return this.reorderCollecPage.asObservable();
+  }
+
+  execReorderCollecPage() {
+    this.reorderCollecPage.next('reorder Collect page');
   }
 
 }

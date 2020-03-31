@@ -128,14 +128,14 @@ export class MainPage implements OnInit {
           cssClass: 'secondary'
         }, {
           text: 'Add Collection',
-          handler: collectionForm => {
-            console.log(collectionForm);
+          handler: async collectionForm => {
             const newCollection: CollectionData = {
               title: collectionForm.title,
               description: collectionForm.description,
               type: collectionForm.type,
             };
-            this.collectionService.addNewCollection(newCollection);
+            await this.collectionService.addNewCollection(newCollection);
+            this.collectionService.execReorderCollecPage();
           }
         }
       ]
