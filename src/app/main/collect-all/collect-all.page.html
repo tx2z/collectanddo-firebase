@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      All Collections
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" menu="collect"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-button (click)="reorderCollections()">Reorder</ion-button>
+
+  <ng-container *ngIf="collectionsLoaded; else collectionsLoading;">
+
+    <app-collection *ngFor="let collection of collections$ | async" [collection]="collection"></app-collection>
+  
+    <ion-infinite-scroll (ionInfinite)="findNext($event)">
+      <ion-infinite-scroll-content>
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  
+  <ng-template #collectionsLoading>
+    <main>
+      Retreiving collections...
+    </main>
+  </ng-template>
+
+</ion-content>
