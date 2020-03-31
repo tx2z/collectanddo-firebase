@@ -9,17 +9,9 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Collect</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <form>    
-    <ion-item lines="full">
-      <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" #title required></ion-input>
-    </ion-item>
-    <ion-button type="submit" (click)="addNewCollection(title)">Add new collection</ion-button>
-  </form>
 
   <ion-button (click)="reorderCollections()">Reorder</ion-button>
 

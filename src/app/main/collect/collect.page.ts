@@ -19,9 +19,9 @@ export class CollectPage implements OnInit, OnDestroy {
   collections$: Observable<Collection[]>;
   collectionsLoaded = false;
   collectionQueryOptions: CollectionQueryOptions = {
-    fieldPath: 'title',
+    fieldPath: 'updatedDesc',
     directionAsc: true,
-    limit: 2,
+    limit: 20,
   };
 
   constructor(
@@ -83,14 +83,6 @@ export class CollectPage implements OnInit, OnDestroy {
         take(1)).subscribe((items: Collection[]) => {
           this.collectionsLoaded = true;
         });
-  }
-
-  addNewCollection(title) {
-    const newCollection: CollectionData = {
-      title: title.value,
-      order: 1,
-    };
-    return this.collectionService.addNewCollection(newCollection);
   }
 
 }

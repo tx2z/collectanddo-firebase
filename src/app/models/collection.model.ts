@@ -3,12 +3,11 @@ import { firestore } from 'firebase/app';
 
 export class CollectionData {
     title: string;
-    order: number;
     created?: number | firestore.FieldValue;
     updated?: number | firestore.FieldValue;
-    todos?: string[];
+    updatedDesc?: number;
     description?: string;
-    image?: string;
+    type?: string;
 }
 
 export class Collection {
