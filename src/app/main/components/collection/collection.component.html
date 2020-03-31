@@ -1,9 +1,45 @@
-<ion-card style="height: 500px;">
-  <ion-card-header>
-    <ion-card-title>{{collection.data.title}}</ion-card-title>
-  </ion-card-header>
+<ion-card>
+  <div (click)="toggleOpenCollection()">
+    <ion-card-header>
+      <ion-card-title>{{collection.data.title}}</ion-card-title>
+    </ion-card-header>
 
-  <ion-card-content>
-    <p>bla bla</p>
-  </ion-card-content>
+    <ion-card-content>
+      <p>{{collection.data.description }}</p>
+    </ion-card-content>
+
+  </div>
+
+  <ion-list *ngIf="collectionOpen">
+    <ion-list-header>
+      <ion-label>Items</ion-label>
+    </ion-list-header>
+
+    <ng-container *ngIf="collectionTodos.length > 0">
+      <ion-item-sliding *ngFor="let todo of collectionTodos">
+        <ion-item>
+          <ion-label>
+            <h2>{{ todo.title }}</h2>
+            <p>{{ todo.content }}</p>          
+          </ion-label>
+          <ion-note slot="end" color="success">DONE</ion-note>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option>Unread</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+
+    <ng-container *ngIf="collectionTodos.length === 0">
+      <ion-item>
+        <ion-label>
+          <h2>No Items</h2>       
+        </ion-label>
+      </ion-item>
+    </ng-container>
+
+    <ion-button>Add Item</ion-button>
+
+  </ion-list>
+
 </ion-card>

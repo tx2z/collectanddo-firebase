@@ -36,20 +36,6 @@ export class CollectionService {
     });
   }
 
-  destroy() {
-    this.unsubscribe();
-  }
-
-  private unsubscribe() {
-    if (this.paginationSubscription) {
-      this.paginationSubscription.unsubscribe();
-    }
-
-    if (this.findSubscription) {
-      this.findSubscription.unsubscribe();
-    }
-  }
-
   clearCollections() {
     this.collectionsSubject = new BehaviorSubject(undefined);
     this.lastPageReached = new BehaviorSubject(false);
@@ -74,13 +60,13 @@ export class CollectionService {
             .limit(queryOptions.limit);
         }
       );
-      this.unsubscribe();
 
       this.paginationSubscription = collection
         .get()
         .subscribe(async (first) => {
           this.nextQueryAfter = first.docs[first.docs.length - 1] as QueryDocumentSnapshot<CollectionData>;
           await this.query(collection);
+          this.paginationSubscription.unsubscribe();
         });
     } catch (err) {
       throw err;
@@ -104,6 +90,7 @@ export class CollectionService {
           })
         ).subscribe(async (items: Collection[]) => {
           await this.addCollections(items);
+          this.findSubscription.unsubscribe();
           resolve();
         });
       } catch (e) {
@@ -133,7 +120,9 @@ export class CollectionService {
     this.userRef.collection<CollectionData>('collections').add({
       ...collection,
       created: creationDate,
-      updated: creationDate
+      updated: creationDate,
+      // Hack to save the timestamp in negative format to order elements
+      updatedDesc: -1 * (new Date().getTime()),
     });
   }
 
