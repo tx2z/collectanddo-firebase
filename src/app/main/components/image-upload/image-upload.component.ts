@@ -109,7 +109,7 @@ export class ImageUploadComponent implements OnInit {
           this.notify.emit(filepath);
           const toast = await this.toastController.create({
             message: 'Image Updated',
-            duration: 2000
+            duration: 5000
           });
           toast.present();
         }, error => {

@@ -11,6 +11,16 @@
 
 <ion-content [fullscreen]="true">
 
-  Hello Collect!
+  <ng-container *ngIf="(collections$ | async); else collectionsLoading;">
+
+    <app-collection *ngFor="let collection of collections$ | async" [collection]="collection"></app-collection>
+  
+  </ng-container>
+  
+  <ng-template #collectionsLoading>
+    <main>
+      Retreiving collections...
+    </main>
+  </ng-template>
 
 </ion-content>

@@ -87,7 +87,7 @@ export class CollectAllPage implements OnInit, OnDestroy {
           this.collectionsLoaded = true;
         });
 
-    this.collectionService.listenReorderCollecPage().subscribe( msg => {
+    this.collectionService.listenReorderCollecAllPage().subscribe( msg => {
       this.reorderCollections();
     });
   }

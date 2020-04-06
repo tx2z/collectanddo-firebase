@@ -3,11 +3,11 @@ import { firestore } from 'firebase/app';
 
 export class CollectionData {
     title: string;
+    description?: string;
+    type?: string;
     created?: number | firestore.FieldValue;
     updated?: number | firestore.FieldValue;
     updatedDesc?: number;
-    description?: string;
-    type?: string;
 }
 
 export class Collection {
