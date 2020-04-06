@@ -14,9 +14,6 @@ import { TodoComponent } from './todo.component';
   ],
   declarations: [
     TodoComponent,
-  ],
-  exports: [
-    TodoComponent,
   ]
 })
 export class TodoComponentModule {}

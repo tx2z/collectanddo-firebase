@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Collection } from 'src/app/models/collection.model';
 import { TodoService } from 'src/app/services/todo.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
+import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { TodoComponent } from 'src/app/main/components/todo/todo.component';
 
 @Component({
   selector: 'app-collection',
@@ -19,6 +21,8 @@ export class CollectionComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
+    private modalController: ModalController,
+    private routerOutlet: IonRouterOutlet,
   ) { }
 
   ngOnInit() {}
@@ -46,6 +50,18 @@ export class CollectionComponent implements OnInit {
       this.openCollection();
       this.collectionOpen = true;
     }
+  }
+
+  async addNewTodo() {
+    const modal = await this.modalController.create({
+      component: TodoComponent,
+      componentProps: {
+        collection: this.collection,
+      },
+      presentingElement: this.routerOutlet.nativeEl
+    });
+
+    return await modal.present();
   }
 
 }

@@ -37,6 +37,30 @@ export class CollectionService {
     });
   }
 
+  getCollections() {
+    try {
+      const collection: AngularFirestoreCollection<CollectionData> = this.getCollectionQuery(
+        ref =>
+          ref
+            .orderBy('updatedDesc', 'asc')
+            .limit(50)
+      );
+      return collection.snapshotChanges().pipe(
+        map(actions =>
+          actions.map(a => {
+            const data: CollectionData = a.payload.doc.data() as CollectionData;
+            const id = a.payload.doc.id;
+            const ref = a.payload.doc.ref;
+            return { id, ref, data };
+          })
+        )
+      );
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
   clearCollections() {
     this.collectionsSubject = new BehaviorSubject(undefined);
     this.lastPageReached = new BehaviorSubject(false);
@@ -54,12 +78,11 @@ export class CollectionService {
   find(queryOptions: CollectionQueryOptions) {
     try {
       const collection: AngularFirestoreCollection<CollectionData> = this.getCollectionQuery(
-        ref => {
-          return ref
+        ref =>
+          ref
             .orderBy(queryOptions.fieldPath, queryOptions.directionAsc ? 'asc' : 'desc')
             .startAfter(this.nextQueryAfter)
-            .limit(queryOptions.limit);
-        }
+            .limit(queryOptions.limit)
       );
 
       this.paginationSubscription = collection
@@ -77,18 +100,19 @@ export class CollectionService {
   private getCollectionQuery(queryFn: QueryFn): AngularFirestoreCollection<CollectionData> {
       return this.userRef.collection<CollectionData>('collections', queryFn);
   }
+
   private query(collection: AngularFirestoreCollection<CollectionData>): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       try {
         this.findSubscription = collection.snapshotChanges().pipe(
-          map(actions => {
-            return actions.map(a => {
+          map(actions =>
+            actions.map(a => {
               const data: CollectionData = a.payload.doc.data() as CollectionData;
               const id = a.payload.doc.id;
               const ref = a.payload.doc.ref;
               return { id, ref, data };
-            });
-          })
+            })
+          )
         ).subscribe(async (items: Collection[]) => {
           await this.addCollections(items);
           this.findSubscription.unsubscribe();
@@ -127,11 +151,11 @@ export class CollectionService {
     });
   }
 
-  listenReorderCollecPage(): Observable<any> {
+  listenReorderCollecAllPage(): Observable<any> {
     return this.reorderCollecPage.asObservable();
   }
 
-  execReorderCollecPage() {
+  execReorderCollecAllPage() {
     this.reorderCollecPage.next('reorder Collect page');
   }
 

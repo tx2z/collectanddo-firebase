@@ -1,3 +1,42 @@
-<p>
-  todo works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Item</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" #title required></ion-input>
+    </ion-item> 
+
+    <ion-item lines="full">
+      <ion-label position="floating">Url</ion-label>
+      <ion-input type="url" #url required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Content</ion-label>
+      <ion-textarea #content required></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="!collection" lines="full">
+      <ion-label position="floating">Collection</ion-label>
+      <ion-select #collectionSelect placeholder="Add to Collection" required>
+        <ion-select-option *ngFor="let collection of collections$ | async" 
+          [value]="collection"
+          >
+          {{ collection.data.title }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item> 
+
+    <ion-button type="submit" (click)="addTodo()" expand="block">Add Item</ion-button>
+
+  </form>
+</ion-content>

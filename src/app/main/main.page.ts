@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, IonRouterOutlet, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from 'src/app/main/components/user/user.component';
+import { TodoComponent } from 'src/app/main/components/todo/todo.component';
 import { User } from 'src/app/models/user.model';
 import { setTheme } from 'src/app/generics/theme.functions';
 import { Observable } from 'rxjs';
@@ -53,10 +54,15 @@ export class MainPage implements OnInit {
     });
   }
 
-  // Configure user options modal
+  // Open user options modal
   async userModal() {
+    return this.showModal(UserComponent);
+  }
+
+  // Open modal with given component
+  async showModal(component: any) {
     const modal = await this.modalController.create({
-      component: UserComponent,
+      component,
       presentingElement: this.routerOutlet.nativeEl
     });
 
@@ -78,7 +84,8 @@ export class MainPage implements OnInit {
         text: 'Item',
         icon: 'bookmark-outline',
         handler: () => {
-          console.log('Play clicked');
+          // Open Todo modal
+          this.showModal(TodoComponent);
         }
       }, {
         text: 'Event',
@@ -135,7 +142,7 @@ export class MainPage implements OnInit {
               type: collectionForm.type,
             };
             await this.collectionService.addNewCollection(newCollection);
-            this.collectionService.execReorderCollecPage();
+            this.collectionService.execReorderCollecAllPage();
           }
         }
       ]

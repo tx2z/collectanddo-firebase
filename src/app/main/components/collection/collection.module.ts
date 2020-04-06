@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { CollectionComponent } from './collection.component';
+import { TodoComponentModule } from 'src/app/main/components/todo/todo.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TodoComponentModule,
   ],
   declarations: [
     CollectionComponent,
