@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CollectionComponent } from './collection.component';
+import { TodoPopoverComponent } from './todo-popover.component';
 import { TodoComponentModule } from 'src/app/main/components/todo/todo.module';
-import { TodoPopoverComponentModule } from 'src/app/main/components/todo-popover/todo-popover.module';
 
 @NgModule({
   imports: [
@@ -14,13 +13,12 @@ import { TodoPopoverComponentModule } from 'src/app/main/components/todo-popover
     FormsModule,
     IonicModule,
     TodoComponentModule,
-    TodoPopoverComponentModule,
   ],
   declarations: [
-    CollectionComponent,
+    TodoPopoverComponent
   ],
   exports: [
-    CollectionComponent,
+    TodoPopoverComponent,
   ]
 })
-export class CollectionComponentModule {}
+export class TodoPopoverComponentModule {}
