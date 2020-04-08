@@ -3,8 +3,9 @@ import { Collection } from 'src/app/models/collection.model';
 import { TodoService } from 'src/app/services/todo.service';
 import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
-import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { ModalController, IonRouterOutlet, PopoverController } from '@ionic/angular';
 import { TodoComponent } from 'src/app/main/components/todo/todo.component';
+import { TodoPopoverComponent } from 'src/app/main/components/todo-popover/todo-popover.component';
 
 @Component({
   selector: 'app-collection',
@@ -23,6 +24,7 @@ export class CollectionComponent implements OnInit {
     private todoService: TodoService,
     private modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
+    private popoverController: PopoverController,
   ) { }
 
   ngOnInit() {}
@@ -62,6 +64,19 @@ export class CollectionComponent implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  async presentPopover(ev: any, todo: Todo) {
+    const popover = await this.popoverController.create({
+      component: TodoPopoverComponent,
+      componentProps: {
+        collection: this.collection,
+        todo,
+      },
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 
 }

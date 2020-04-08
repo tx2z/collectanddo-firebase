@@ -4,7 +4,7 @@ import { firestore } from 'firebase/app';
 export class TodoData {
     title: string;
     url: string;
-    done: boolean;
+    done?: boolean;
     content?: string;
     created?: number | firestore.FieldValue;
     updated?: number | firestore.FieldValue;

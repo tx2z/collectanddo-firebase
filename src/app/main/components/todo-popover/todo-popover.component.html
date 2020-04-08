@@ -1,0 +1,24 @@
+<ion-list>
+  <ion-item button (click)="editTodo()">
+    <ion-icon slot="start" name="create-outline"></ion-icon>
+    <ion-label>
+      Edit
+    </ion-label>
+  </ion-item>
+  <ion-item button (click)="moveTodo()">
+    <ion-icon slot="start" name="enter-outline"></ion-icon>
+    <ion-label>
+      Move to...
+    </ion-label>
+  </ion-item>
+  <ion-item button (click)="deleteTodo()">
+    <ion-icon slot="start" name="trash-outline"></ion-icon>
+    <ion-label>
+      Delete
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none" button (click)="close()">
+    Close
+  </ion-item>
+</ion-list>
+

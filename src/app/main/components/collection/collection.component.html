@@ -20,12 +20,18 @@
         <ion-item>
           <ion-label>
             <h2>{{ todo.data.title }}</h2>
-            <p>{{ todo.data.content }}</p>          
+            <p><a target="_blank" href="{{ todo.data.url }}">{{ todo.data.url }}</a> </p>         
+            <p *ngIf="todo.data.content">{{ todo.data.content }}</p>         
           </ion-label>
           <ion-note *ngIf="todo.data.done" slot="end" color="success">DONE</ion-note>
+          <ion-buttons slot="end">
+            <ion-button (click)="presentPopover($event, todo)">
+              <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option>Unread</ion-item-option>
+          <ion-item-option color="success" expandable>Mark as done</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ng-container>
@@ -38,7 +44,7 @@
       </ion-item>
     </ng-container>
 
-    <ion-button type="submit" (click)="addNewTodo()">Add Item</ion-button>
+    <ion-button type="submit" (click)="addNewTodo()" expand="block">Add Item</ion-button>
 
   </ion-list>
 

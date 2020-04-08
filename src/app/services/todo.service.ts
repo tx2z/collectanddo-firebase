@@ -49,13 +49,31 @@ export class TodoService {
   addTodo(todo: TodoData, collectionID: string) {
     const creationDate = firestore.FieldValue.serverTimestamp();
 
-    return this.userCollections.doc(collectionID)
-      .collection<TodoData>('todos').add({
-      ...todo,
-      created: creationDate,
-      updated: creationDate,
-      // Hack to save the timestamp in negative format to order elements
-      updatedDesc: -1 * (new Date().getTime()),
-    });
+    return this.userCollections.doc(collectionID).collection<TodoData>('todos')
+      .add({
+        ...todo,
+        created: creationDate,
+        updated: creationDate,
+        // Hack to save the timestamp in negative format to order elements
+        updatedDesc: -1 * (new Date().getTime()),
+      });
   }
+
+  updateTodo(todo: TodoData, collectionID: string, todoID: string) {
+    const updateDate = firestore.FieldValue.serverTimestamp();
+
+    return this.userCollections.doc(`${collectionID}/todos/${todoID}`)
+      .set({
+        ...todo,
+        updated: updateDate,
+        // Hack to save the timestamp in negative format to order elements
+        updatedDesc: -1 * (new Date().getTime()),
+      }, { merge: true });
+  }
+
+  deleteTodo(collectionID: string, todoID: string) {
+    return this.userCollections.doc(`${collectionID}/todos/${todoID}`)
+      .delete();
+  }
+
 }

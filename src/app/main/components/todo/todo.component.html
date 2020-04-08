@@ -12,31 +12,46 @@
 
     <ion-item lines="full">
       <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" #title required></ion-input>
+      <ion-input type="text" #title [value]="todo?.data.title" required></ion-input>
     </ion-item> 
 
     <ion-item lines="full">
       <ion-label position="floating">Url</ion-label>
-      <ion-input type="url" #url required></ion-input>
+      <ion-input type="url" #url [value]="todo?.data.url" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Content</ion-label>
-      <ion-textarea #content required></ion-textarea>
+      <ion-textarea #content [value]="todo?.data.content" required></ion-textarea>
     </ion-item>
 
-    <ion-item *ngIf="!collection" lines="full">
+    <ion-item *ngIf="!collection || moveTodo" lines="full">
       <ion-label position="floating">Collection</ion-label>
-      <ion-select #collectionSelect placeholder="Add to Collection" required>
-        <ion-select-option *ngFor="let collection of collections$ | async" 
-          [value]="collection"
+      <ion-select #collectionSelect [placeholder]="moveTodo? 'Move to Collection' : 'Add to Collection'" required>
+        <ion-select-option *ngFor="let collectionData of collections$ | async" 
+          [value]="collectionData"
           >
-          {{ collection.data.title }}
+          {{ collectionData.data.title }}
         </ion-select-option>
       </ion-select>
-    </ion-item> 
+    </ion-item>
 
-    <ion-button type="submit" (click)="addTodo()" expand="block">Add Item</ion-button>
+    <ion-item *ngIf="moveTodo" lines="full">
+      <ion-checkbox slot="start" #copy></ion-checkbox>
+      <ion-label>Create a copy (leave on current collection)</ion-label>
+    </ion-item>
+
+    <ion-button *ngIf="!todo" type="submit" (click)="addTodo()" expand="block">
+      Add Item
+    </ion-button>
+
+    <ion-button *ngIf="todo && !moveTodo" type="submit" (click)="updateTodo()" expand="block">
+      Update Item
+    </ion-button>
+    
+    <ion-button *ngIf="todo && moveTodo" type="submit" (click)="copyTodo()" expand="block">
+      Move Item
+    </ion-button>
 
   </form>
 </ion-content>
