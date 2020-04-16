@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DoPage } from './do.page';
+import { NgCalendarModule  } from 'ionic2-calendar';
 import { ExploreContainerComponentModule } from '../components/explore-container/explore-container.module';
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ExploreContainerComponentModule } from '../components/explore-container
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: DoPage }])
+    NgCalendarModule,
+    RouterModule.forChild([{ path: '', component: DoPage }]),
   ],
   declarations: [DoPage]
 })

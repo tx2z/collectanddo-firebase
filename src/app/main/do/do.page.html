@@ -1,17 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Do
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="slidePrev()"><</ion-button>
+        <ion-title>{{viewTitle}}</ion-title>
+        <ion-button (click)="slideNext()">></ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="isToday" (click)="today()">Today</ion-button>
+        <ion-select
+          placeholder="View"
+          interface="popover"
+          (ionChange)="changeMode($event.target.value)"
+          [ngModel]="calendarMode"
+        >
+          <ion-select-option value="month">Month</ion-select-option>
+          <ion-select-option value="week">Week</ion-select-option>
+          <ion-select-option value="day">Day</ion-select-option>
+        </ion-select>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <calendar 
+    [eventSource]="eventSource"
+    queryMode="remote"
+    [calendarMode]="calendarMode"
+    [currentDate]="currentDate"
+    (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    (onRangeChanged)="onRangeChanged($event)"
+    step="30"
+    startingDayMonth="1"
+    startingDayWeek="1"
+    allDayLabel="All Day"
+    noEventsLabel="No events Today"
+  ></calendar>
+  
 </ion-content>
