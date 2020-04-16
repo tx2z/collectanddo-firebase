@@ -15,4 +15,4 @@ export class Todo {
     id: string;
     ref: DocumentReference;
     data: TodoData;
-  }
+}

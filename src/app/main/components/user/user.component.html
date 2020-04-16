@@ -33,12 +33,15 @@
 
     <ion-card-content>
       <ion-list>
-        <ion-item lines="full">
+
+        <ion-item lines="none">
           <ion-icon slot="start" name="moon"></ion-icon>
           <ion-label>
             Toggle Dark Theme
           </ion-label>
-          <ion-segment (ionChange)="toggleMode($event)" slot="end" [value]="user.theme" >
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-segment (ionChange)="toggleMode($event)" [value]="user.theme" >
             <ion-segment-button value="system">
               <ion-label>System</ion-label>
             </ion-segment-button>
@@ -50,6 +53,27 @@
             </ion-segment-button>
           </ion-segment>
         </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-label>
+            Default Calendar view
+          </ion-label>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-segment (ionChange)="toggleCalendar($event)" [value]="user.calendarView" >
+            <ion-segment-button value="month">
+              <ion-label>Month</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="week">
+              <ion-label>Week</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="day">
+              <ion-label>Day</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+
         <ion-item lines="full">
           <ion-icon slot="start" name="log-out-outline"></ion-icon>
           <ion-label>
@@ -59,6 +83,7 @@
             Log Out
           </ion-button>
         </ion-item>
+
       </ion-list>
     </ion-card-content>
 
