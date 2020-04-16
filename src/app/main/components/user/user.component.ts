@@ -46,6 +46,11 @@ export class UserComponent implements OnInit {
     this.userRef.set({theme}, { merge: true });
   }
 
+  toggleCalendar(event) {
+    const calendarView = event.detail.value;
+    this.userRef.set({calendarView}, { merge: true });
+  }
+
   changeDisplayName() {
     const displayName = this.displayName.value as string;
     this.userRef.set({displayName}, { merge: true });

@@ -23,12 +23,13 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AuthService } from 'src/app/services/auth.service';
 
+import { NgCalendarModule  } from 'ionic2-calendar';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
     /*IonicStorageModule.forRoot(),*/
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -36,6 +37,8 @@ import { AuthService } from 'src/app/services/auth.service';
     AngularFireDatabaseModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
+    NgCalendarModule,
+    IonicModule.forRoot(),
   ],
   providers: [
     StatusBar,
