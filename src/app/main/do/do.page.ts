@@ -1,7 +1,9 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { EventData, EventRange, CalendarView } from 'src/app/models/event.model';
+import { UserEventData, UserEventRange, CalendarView, UserEvent } from 'src/app/models/event.model';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { AuthService } from 'src/app/services/auth.service';
+import { EventService } from 'src/app/services/event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-do',
@@ -10,15 +12,18 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DoPage implements OnInit, OnDestroy {
     @ViewChild(CalendarComponent) calendarComponent: CalendarComponent;
-    eventSource: EventData[];
+    eventSource: UserEventData[];
     viewTitle: string;
 
     isToday: boolean;
     calendarMode: string;
     currentDate: Date = new Date();
 
+    eventsSubscription: Subscription;
+
     constructor(
       private authService: AuthService,
+      private eventService: EventService,
     ) { }
 
     ngOnInit() {
@@ -34,6 +39,7 @@ export class DoPage implements OnInit, OnDestroy {
     ngOnDestroy() {
       // TODO: Remove loaded events & subscriptions
       this.eventSource = null;
+      this.eventsSubscription.unsubscribe();
     }
 
     ionViewWillEnter() {
@@ -44,18 +50,30 @@ export class DoPage implements OnInit, OnDestroy {
       }
     }
 
-    onRangeChanged(event: EventRange) {
+    onRangeChanged(event: UserEventRange) {
       console.log('range changed: startTime: ' + event.startTime + ', endTime: ' + event.endTime);
-      // TODO: Load events from firebase for the given dates
-      // this.eventSource = loadedEvents;
+      this.eventsSubscription = this.eventService.getEvents(event.startTime, event.endTime).subscribe(
+        events => {
+          this.eventSource = events.map(
+            userEvent => {
+              const newEvent = JSON.parse(JSON.stringify(userEvent.data));
+              newEvent.startTime = (userEvent.data.startTime as firebase.firestore.Timestamp).toDate();
+              newEvent.endTime = (userEvent.data.endTime as firebase.firestore.Timestamp).toDate();
+
+              return newEvent;
+            }
+          );
+        }
+      );
     }
 
     onViewTitleChanged(title: string) {
       this.viewTitle = title;
     }
 
-    onEventSelected(event: EventData) {
-        console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    onEventSelected(event: UserEventData) {
+      // TODO: Add event modal
+      console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
     }
 
     changeMode(mode: CalendarView) {

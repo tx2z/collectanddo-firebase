@@ -5,8 +5,8 @@ export class CollectionData {
     title: string;
     description?: string;
     type?: string;
-    created?: number | firestore.FieldValue;
-    updated?: number | firestore.FieldValue;
+    created?: firebase.firestore.Timestamp | firestore.FieldValue;
+    updated?: firebase.firestore.Timestamp | firestore.FieldValue;
     updatedDesc?: number;
 }
 

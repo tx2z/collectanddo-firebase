@@ -23,8 +23,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-import { NgCalendarModule  } from 'ionic2-calendar';
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -37,7 +35,6 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     AngularFireDatabaseModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
-    NgCalendarModule,
     IonicModule.forRoot(),
   ],
   providers: [

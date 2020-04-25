@@ -1,19 +1,20 @@
 import {DocumentReference } from '@angular/fire/firestore';
+import { firestore } from 'firebase/app';
 
-export class EventData {
+export class UserEventData {
     title: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
+    endTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
     allDay: boolean;
 }
 
-export class Event {
+export class UserEvent {
     id: string;
     ref: DocumentReference;
-    data: EventData;
+    data: UserEventData;
 }
 
-export class EventRange {
+export class UserEventRange {
     startTime: Date;
     endTime: Date;
 }
