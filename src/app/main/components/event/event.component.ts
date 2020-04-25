@@ -3,7 +3,6 @@ import { ModalController, IonInput, ToastController, IonCheckbox, IonDatetime } 
 import { EventService } from 'src/app/services/event.service';
 import { UserEventData, UserEvent } from 'src/app/models/event.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { Collection } from 'src/app/models/collection.model';
 
 @Component({
   selector: 'app-event',
