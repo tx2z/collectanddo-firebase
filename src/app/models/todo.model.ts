@@ -6,8 +6,8 @@ export class TodoData {
     url: string;
     done?: boolean;
     content?: string;
-    created?: number | firestore.FieldValue;
-    updated?: number | firestore.FieldValue;
+    created?: firebase.firestore.Timestamp | firestore.FieldValue;
+    updated?: firebase.firestore.Timestamp | firestore.FieldValue;
     updatedDesc?: number;
 }
 

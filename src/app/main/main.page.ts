@@ -3,6 +3,7 @@ import { ModalController, IonRouterOutlet, AlertController } from '@ionic/angula
 import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from 'src/app/main/components/user/user.component';
 import { TodoComponent } from 'src/app/main/components/todo/todo.component';
+import { EventComponent } from 'src/app/main/components/event/event.component';
 import { User } from 'src/app/models/user.model';
 import { setTheme } from 'src/app/generics/theme.functions';
 import { Observable } from 'rxjs';
@@ -91,15 +92,13 @@ export class MainPage implements OnInit {
         text: 'Event',
         icon: 'calendar-outline',
         handler: () => {
-          console.log('Favorite clicked');
+          // Open Event modal
+          this.showModal(EventComponent);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
       }]
     });
     await actionSheet.present();

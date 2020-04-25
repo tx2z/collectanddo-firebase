@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Item</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" #title [value]="event?.data.title" required></ion-input>
+    </ion-item> 
+
+    <ion-item lines="full">
+      <ion-label position="floating">Start Time</ion-label>
+      <ion-datetime #startTime
+        displayFormat="D MMM YYYY hh:mm A"
+        minuteValues="0,15,30,45"
+        [min]="dateMin"
+        max="2100"
+        [value]="event?.data.startTime"
+        (ionChange)="setEndTime()"
+        required
+        ></ion-datetime>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">End Time</ion-label>
+      <ion-datetime #endTime
+      displayFormat="D MMM YYYY hh:mm A"
+      minuteValues="0,15,30,45"
+      [min]="forceEndTime || dateMin"
+      max="2100"
+      [value]="event?.data.endTime || forceEndTime"
+      required
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-checkbox slot="start" #allDay [checked]="event?.data.allDay"></ion-checkbox>
+      <ion-label>All day event</ion-label>
+    </ion-item>
+
+    <ion-button *ngIf="!event" type="submit" (click)="addEvent()" expand="block">
+      Add Item
+    </ion-button>
+
+    <ion-button *ngIf="event" type="submit" (click)="updateEvent()" expand="block">
+      Update Item
+    </ion-button>
+
+  </form>
+</ion-content>
