@@ -8,6 +8,7 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage } from './main.page';
 import { UserComponentModule } from 'src/app/main/components/user/user.module';
 import { TodoComponentModule } from 'src/app/main/components/todo/todo.module';
+import { EventComponentModule } from 'src/app/main/components/event/event.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { TodoComponentModule } from 'src/app/main/components/todo/todo.module';
     MainPageRoutingModule,
     UserComponentModule,
     TodoComponentModule,
+    EventComponentModule,
   ],
   declarations: [MainPage]
 })
