@@ -1,9 +1,11 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { UserEventData, UserEventRange, CalendarView, UserEvent } from 'src/app/models/event.model';
+import { UserEventData, UserEventRange, CalendarView } from 'src/app/models/event.model';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { AuthService } from 'src/app/services/auth.service';
 import { EventService } from 'src/app/services/event.service';
 import { Subscription } from 'rxjs';
+import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { EventDetailComponent } from 'src/app/main/components/event-detail/event-detail.component';
 
 @Component({
   selector: 'app-do',
@@ -24,6 +26,8 @@ export class DoPage implements OnInit, OnDestroy {
     constructor(
       private authService: AuthService,
       private eventService: EventService,
+      private modalController: ModalController,
+      private routerOutlet: IonRouterOutlet,
     ) { }
 
     ngOnInit() {
@@ -57,6 +61,7 @@ export class DoPage implements OnInit, OnDestroy {
           this.eventSource = events.map(
             userEvent => {
               const newEvent = JSON.parse(JSON.stringify(userEvent.data));
+              newEvent.id = userEvent.id;
               newEvent.startTime = (userEvent.data.startTime as firebase.firestore.Timestamp).toDate();
               newEvent.endTime = (userEvent.data.endTime as firebase.firestore.Timestamp).toDate();
 
@@ -71,9 +76,16 @@ export class DoPage implements OnInit, OnDestroy {
       this.viewTitle = title;
     }
 
-    onEventSelected(event: UserEventData) {
-      // TODO: Add event modal
-      console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    async onEventSelected(event: UserEventData) {
+      const modal = await this.modalController.create({
+        component: EventDetailComponent,
+        componentProps: {
+          event,
+        },
+        presentingElement: this.routerOutlet.nativeEl
+      });
+
+      return await modal.present();
     }
 
     changeMode(mode: CalendarView) {

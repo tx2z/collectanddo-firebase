@@ -6,6 +6,7 @@ export class UserEventData {
     startTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
     endTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
     allDay: boolean;
+    id?: string;
 }
 
 export class UserEvent {
