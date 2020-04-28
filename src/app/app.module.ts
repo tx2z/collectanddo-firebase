@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 /*import { IonicStorageModule } from '@ionic/storage';*/
 
@@ -35,6 +36,7 @@ import { AuthService } from 'src/app/services/auth.service';
     AngularFireDatabaseModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     IonicModule.forRoot(),
   ],
   providers: [

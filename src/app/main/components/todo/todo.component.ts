@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, IonInput, IonTextarea, IonSelect, ToastController, IonCheckbox } from '@ionic/angular';
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { TodoService } from 'src/app/services/todo.service';
-import { TodoData, Todo } from 'src/app/models/todo.model';
+import { TodoData, Todo, HasMetadata } from 'src/app/models/todo.model';
 import { CollectionService } from 'src/app/services/collection.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
@@ -20,13 +21,19 @@ export class TodoComponent implements OnInit {
 
   @ViewChild('title') title: IonInput;
   @ViewChild('url') url: IonInput;
+  @ViewChild('description') description: IonTextarea;
+  @ViewChild('site') site: IonInput;
+  @ViewChild('image') image: IonInput;
   @ViewChild('content') content: IonTextarea;
   @ViewChild('collectionSelect') collectionSelect: IonSelect;
   @ViewChild('copy') copy: IonCheckbox;
 
   collections$: Observable<Collection[]>;
+  hasMetadata: HasMetadata = 'no';
+  todoData: TodoData;
 
   constructor(
+    private fireFunctions: AngularFireFunctions,
     private collectionService: CollectionService,
     private authService: AuthService,
     private todoService: TodoService,
@@ -35,6 +42,10 @@ export class TodoComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    if (this.todo) {
+      this.hasMetadata = 'yes';
+      this.todoData = this.todo.data;
+    }
     this.authService.user$.subscribe({
       next: (user) => {
         if (user) {
@@ -48,6 +59,20 @@ export class TodoComponent implements OnInit {
     return await this.modalController.dismiss();
   }
 
+  async getUrlMetadata() {
+    this.hasMetadata = 'loading';
+    const url = this.url.value as string;
+    // TODO: Check thar URL is valid
+    const getMetadataFn = this.fireFunctions.httpsCallable(`get_metadata?url=${url}`);
+    getMetadataFn({}).toPromise().then(
+      metadata => {
+        this.hasMetadata = 'yes';
+        console.log(metadata);
+        this.todoData = {...this.todoData, ...metadata};
+      }
+    );
+  }
+
   async addTodo() {
     let selectedCollection: Collection;
     if (this.collectionSelect?.value) {
@@ -58,6 +83,9 @@ export class TodoComponent implements OnInit {
     const todo: TodoData = {
       title: this.title.value as string,
       url: this.url.value as string,
+      description: this.description.value as string,
+      site: this.site.value as string,
+      image: this.image.value as string,
       content: this.content.value as string,
       done: false,
     };
@@ -74,6 +102,9 @@ export class TodoComponent implements OnInit {
     const todo: TodoData = {
       title: this.title.value as string,
       url: this.url.value as string,
+      description: this.description.value as string,
+      site: this.site.value as string,
+      image: this.image.value as string,
       content: this.content.value as string,
     };
     await this.todoService.updateTodo(todo, this.collection.id, this.todo.id);
