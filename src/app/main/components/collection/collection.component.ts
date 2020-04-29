@@ -17,7 +17,7 @@ export class CollectionComponent implements OnInit {
 
   private todosSubscription: Subscription;
   collectionOpen = false;
-  collectionTodos: Todo[] = [];
+  collectionTodos: Todo[];
 
 
   constructor(
@@ -36,12 +36,13 @@ export class CollectionComponent implements OnInit {
   }
 
   private openCollection() {
-    this.getCollectionTodos();
+    // Wait for animation to end
+    setTimeout(() => this.getCollectionTodos(), 500);
   }
 
   private closeCollection() {
     this.todosSubscription.unsubscribe();
-    this.collectionTodos = [];
+    this.collectionTodos = null;
   }
 
   toggleOpenCollection() {
@@ -54,7 +55,8 @@ export class CollectionComponent implements OnInit {
     }
   }
 
-  async addNewTodo() {
+  async addNewTodo(ev: Event) {
+    ev.stopPropagation();
     const modal = await this.modalController.create({
       component: TodoComponent,
       componentProps: {
