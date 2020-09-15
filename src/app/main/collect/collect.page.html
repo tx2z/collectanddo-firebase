@@ -10,12 +10,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <app-collection-todos *ngIf="openedCollection" [collection]="openedCollection"></app-collection-todos>
+</ion-content>
 
-  <ng-container *ngIf="(collections$ | async); else collectionsLoading;">
+<ion-footer [class.closed]="footerClosed">
+    <ion-text color="primary" (click)="toggleFooter()">
+      <h2>Collections</h2>
+    </ion-text>
 
-    <app-collection *ngFor="let collection of collections$ | async" [collection]="collection"></app-collection>
-  
-  </ng-container>
+    <ion-slides #colletionsSlider 
+      id="collection_slides" 
+      pager="false" 
+      [options]="slideOpts" 
+      *ngIf="(collections$ | async); else collectionsLoading;"
+      >
+
+    <ion-slide *ngFor="let collection of collections$ | async" class="collection_slider">
+      <app-collection [collection]="collection" (notifyCollection)="openCollection($event)"></app-collection>
+    </ion-slide>
+
+  </ion-slides>
   
   <ng-template #collectionsLoading>
     <main>
@@ -23,4 +37,5 @@
     </main>
   </ng-template>
 
-</ion-content>
+</ion-footer>
+
