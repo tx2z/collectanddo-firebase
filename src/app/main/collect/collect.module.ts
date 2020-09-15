@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CollectPage } from './collect.page';
 import { CollectionComponentModule } from '../components/collection/collection.module';
+import { CollectionTodosComponentModule } from '../components/collection-todos/collection-todos.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { CollectionComponentModule } from '../components/collection/collection.m
     FormsModule,
     RouterModule.forChild([{ path: '', component: CollectPage }]),
     CollectionComponentModule,
+    CollectionTodosComponentModule,
   ],
   declarations: [
     CollectPage

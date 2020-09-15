@@ -1,61 +1,13 @@
-<ion-card class="collection_card" [class.open]="collectionOpen">
-  <div (click)="toggleOpenCollection()">
+<ion-card class="collection_card" (click)="openCollection()">
+
     <ion-card-header>
       <ion-card-title>
         {{collection.data.title}}
-        <ion-icon *ngIf="!collectionOpen" class="collection_title_chevron" name="chevron-down-outline"></ion-icon>
-        <ion-icon *ngIf="collectionOpen" class="collection_title_chevron" name="chevron-up-outline"></ion-icon>
-        <ion-icon *ngIf="collectionOpen" class="collection_title_add" (click)="addNewTodo($event)" name="add-circle-outline"></ion-icon>
       </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <p>{{collection.data.description }}</p>
     </ion-card-content>
-
-  </div>
-
-  <ng-container *ngIf="collectionOpen && collectionTodos?.length > 0">
-
-    <ion-card *ngFor="let todo of collectionTodos" class="todo_card">
-      <ion-img *ngIf="todo.data.image" class="todo_image" [src]="todo.data.image"></ion-img>
-
-      <ion-card-header *ngIf="todo.data.title">
-        <ion-card-title>{{ todo.data.title }}</ion-card-title>
-      </ion-card-header>
-    
-      <ion-card-content *ngIf="todo.data.description">
-        {{ todo.data.description }}
-      </ion-card-content>
-
-      <ion-card-content *ngIf="todo.data.content">
-        <ion-icon class="todo_notes_icon" name="attach-outline"></ion-icon>
-        {{ todo.data.content }}
-      </ion-card-content>
-
-      <ion-item lines="none">
-        <img class="todo_favicon" src="https://www.google.com/s2/favicons?domain_url={{todo.data.url}}">
-        <ion-label title="{{todo.data.site || todo.data.url}}">{{todo.data.site || todo.data.url}}</ion-label>
-        <ion-buttons slot="end">
-          <ion-button href="{{todo.data.url}}" target="_blank">
-            <ion-icon slot="icon-only" name="open-outline"></ion-icon>
-          </ion-button>
-          <ion-button (click)="presentPopover($event, todo)">
-            <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-
-    </ion-card>
-
-  </ng-container>
-
-  <ion-item *ngIf="collectionOpen && collectionTodos?.length === 0" lines="none">
-    <ion-label>
-      No Items   
-    </ion-label>
-  </ion-item>
-
-  <ion-progress-bar *ngIf="collectionOpen && !collectionTodos" type="indeterminate"></ion-progress-bar>
 
 </ion-card>
