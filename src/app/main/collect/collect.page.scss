@@ -2,13 +2,6 @@ ion-content ion-toolbar {
   --background: translucent;
 }
 
-ion-footer {
-  background: var(--ion-background-color);
-  &.closed {
-    height: 78px;
-  }
-}
-
 #collection_slides {
   ion-slide.collection_slider {
     width: 150px;
