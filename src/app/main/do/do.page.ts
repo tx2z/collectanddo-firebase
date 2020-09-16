@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { UserEventData, UserEventRange, CalendarView } from 'src/app/models/event.model';
-import { CalendarComponent } from 'ionic2-calendar/calendar';
+import { CalendarComponent } from 'ionic2-calendar';
 import { AuthService } from 'src/app/services/auth.service';
 import { EventService } from 'src/app/services/event.service';
 import { Subscription } from 'rxjs';
