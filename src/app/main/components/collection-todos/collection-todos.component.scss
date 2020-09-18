@@ -1,5 +1,6 @@
 .collection_todo_card {
   transition: margin-left 0.5s, margin-right 0.5s;
+  margin-bottom: 100px;
   &.open {
     margin-left: 0;
     margin-right: 0;
@@ -14,7 +15,18 @@
   -webkit-animation: fadeIn 0.5s;
   animation: fadeIn 0.5s;
 }
+#masonry_todos {
+  margin: 0 auto;
+  visibility: hidden;
 
+  &.show {
+    visibility: visible;
+  }
+
+  .masonry_todo {
+    width: 310px;
+  }
+}
 .todo_card {
   -webkit-animation: zoomIn 0.5s;
   animation: zoomIn 0.5s;
