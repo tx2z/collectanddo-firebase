@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^9.1.12",
     "@angular/common": "^9.1.12",
     "@angular/core": "^9.1.12",
     "@angular/fire": "^6.0.2",
@@ -35,6 +36,8 @@
     "cupertino-pane": "^1.1.82",
     "firebase": "^7.20.0",
     "ionic2-calendar": "^0.6.6",
+    "masonry-layout": "^4.2.2",
+    "ngx-masonry": "^9.2.0",
     "rxjs": "^6.6.3",
     "tslib": "^1.13.0",
     "zone.js": "^0.10.2"

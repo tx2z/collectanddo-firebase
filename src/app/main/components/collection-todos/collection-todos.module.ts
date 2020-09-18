@@ -8,6 +8,8 @@ import { CollectionTodosComponent } from './collection-todos.component';
 import { TodoComponentModule } from 'src/app/main/components/todo/todo.module';
 import { TodoPopoverComponentModule } from 'src/app/main/components/todo-popover/todo-popover.module';
 
+import { NgxMasonryModule } from 'ngx-masonry';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { TodoPopoverComponentModule } from 'src/app/main/components/todo-popover
     IonicModule,
     TodoComponentModule,
     TodoPopoverComponentModule,
+    NgxMasonryModule,
   ],
   declarations: [
     CollectionTodosComponent,
