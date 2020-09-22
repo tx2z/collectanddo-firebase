@@ -1,8 +1,11 @@
-<ion-card class="collection_card" (click)="openCollection()">
-
+<ion-card 
+  class="collection_card"
+  [class.selected]="collection === openedCollection"
+  (click)="openCollection()"
+  >
     <ion-card-header>
       <ion-card-title>
-        {{collection.data.title}}
+        <h2>{{collection.data.title}}</h2>
       </ion-card-title>
     </ion-card-header>
 

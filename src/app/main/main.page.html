@@ -11,11 +11,12 @@
   </ion-tab-bar>
 </ion-tabs>
 
-<ion-fab *ngIf="user$ | async as user" vertical="top" horizontal="end" slot="fixed" (click)="userModal()">
-  <ion-fab-button>
+<ion-chip *ngIf="user$ | async as user" slot="end" (click)="userModal()">
+  <ion-label>Hello {{ user.displayName || user.email }}</ion-label>
+  <ion-avatar>
     <img *ngIf="user.photoURL" src="{{ userImage || user.photoURL64 || user.photoURL }}">
-  </ion-fab-button>
-</ion-fab>
+  </ion-avatar>
+</ion-chip>
 
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
   <ion-fab-button (click)="addNewActionSheet()">

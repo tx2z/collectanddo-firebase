@@ -10,3 +10,13 @@ ion-content ion-toolbar {
     }
   }
 }
+
+:host {
+  ion-content {
+      // --background: #f3e5f5;
+      --background: none;
+      background:url('http://www.hdwallpaperspulse.com/wp-content/uploads/2017/03/28/cloudy-weather-natural-image.jpg');
+      background-size: cover;
+      background-position: center center;
+  }
+}

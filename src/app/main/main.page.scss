@@ -1,1 +1,23 @@
+ion-chip {
+    position: fixed;
+    right: 0;
+
+    ion-label {
+        animation-name: hide_label;
+        animation-duration: 4s;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 0;
+    }
+
+    ion-avatar {
+        margin-left: -8px;
+    }
+}
+
+@keyframes hide_label {
+    0% {max-width: 1600px; margin-right: 16px;}
+    90% {max-width: 0; margin-right: 16px;}
+    100% {margin-right: 0;}
+}
 

@@ -59,7 +59,7 @@ export class CollectPage implements OnInit {
         {
           top: { enabled: false },
           middle: { enabled: true, height: 360, bounce: true },
-          bottom: { enabled: true, height: 140 },
+          bottom: { enabled: true, height: 120 },
         },
         onTransitionEnd: () => this.changeBackdrop()
       });
