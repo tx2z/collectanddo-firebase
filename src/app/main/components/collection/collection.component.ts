@@ -8,6 +8,7 @@ import { Collection } from 'src/app/models/collection.model';
 })
 export class CollectionComponent implements OnInit {
   @Input() collection: Collection;
+  @Input() openedCollection: Collection;
   @Output() notifyCollection: EventEmitter<Collection> = new EventEmitter<Collection>();
 
   collectionOpen = false;

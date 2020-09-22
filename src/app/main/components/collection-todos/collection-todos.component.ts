@@ -33,7 +33,6 @@ export class CollectionTodosComponent implements OnInit {
 
   masonryOptions: NgxMasonryOptions = {
     columnWidth: 310,
-    horizontalOrder: true,
     fitWidth: true,
   };
 

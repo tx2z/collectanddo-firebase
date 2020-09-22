@@ -1,19 +1,24 @@
 .collection_todo_card {
-  transition: margin-left 0.5s, margin-right 0.5s;
-  margin-bottom: 100px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(5px);
+
+  transition: margin-left 0.5s, margin-right 0.5s, margin-top 0.5s;
+  margin-bottom: 72px;
   &.open {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 3px;
   }
-}
-.collection_todo_title_chevron {
-  float: right;
-}
-.collection_todo_title_add {
-  float: right;
-  margin-right: 20px;
-  -webkit-animation: fadeIn 0.5s;
-  animation: fadeIn 0.5s;
+
+  > ion-card-header {
+    padding-left: 32px;
+    padding-right: 32px;
+    text-align: center;
+  }
+
+  > ion-card-content {
+    color: #222428;
+  }
 }
 #masonry_todos {
   margin: 0 auto;
@@ -32,8 +37,8 @@
   animation: zoomIn 0.5s;
 }
 .todo_image {
-  min-height: 200px;
-  max-height: 200px;
+  min-height: 100px;
+  max-height: 100px;
   &:after {
     content:'';
     position:absolute;

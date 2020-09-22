@@ -28,4 +28,8 @@
 /* Hack for cupertino-pane to work fullscreen in desktop */
 .pane {
     max-width: 100% !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(20px);
 }

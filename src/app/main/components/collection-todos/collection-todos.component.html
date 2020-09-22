@@ -1,61 +1,59 @@
 <ion-card class="collection_todo_card" [class.open]="collectionTodos">
-    <ion-card-header>
-      <ion-card-title>
-        {{collection.data.title}}
-        <ion-icon *ngIf="collectionTodoOpen" class="collection_todo_title_add" (click)="addNewTodo($event)" name="add-circle-outline"></ion-icon>
-      </ion-card-title>
-    </ion-card-header>
+  <ion-card-header>
+    <ion-card-title>
+      {{collection.data.title}}
+    </ion-card-title>
+  </ion-card-header>
 
-    <ion-card-content>
-      <p>{{collection.data.description }}</p>
-    </ion-card-content>
+  <ion-card-content>
+    <p>{{collection.data.description }}</p>
+  </ion-card-content>
 
-    <ng-container *ngIf="collectionTodoOpen && collectionTodos?.length > 0">
-      <ngx-masonry id="masonry_todos" [class.show]="showMasonry" [options]="masonryOptions">
+  <ng-container *ngIf="collectionTodoOpen && collectionTodos?.length > 0">
+    <ngx-masonry id="masonry_todos" [class.show]="showMasonry" [options]="masonryOptions">
 
-        <div ngxMasonryItem class="masonry_todo" *ngFor="let todo of collectionTodos">
+      <div ngxMasonryItem class="masonry_todo" *ngFor="let todo of collectionTodos">
 
-          <ion-card  class="todo_card">
-            <ion-img *ngIf="todo.data.image" class="todo_image" [src]="todo.data.image"></ion-img>
+        <ion-card  class="todo_card">
+          <ion-img *ngIf="todo.data.image" class="todo_image" [src]="todo.data.image"></ion-img>
 
-            <ion-card-header *ngIf="todo.data.title">
-              <ion-card-title>{{ todo.data.title }}</ion-card-title>
-            </ion-card-header>
-          
-            <ion-card-content *ngIf="todo.data.description">
-              {{ todo.data.description }}
-            </ion-card-content>
+          <ion-card-header *ngIf="todo.data.title">
+            <ion-card-title><h2>{{ todo.data.title }}</h2></ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content *ngIf="todo.data.description">
+            {{ todo.data.description }}
+          </ion-card-content>
 
-            <ion-card-content *ngIf="todo.data.content">
-              <ion-icon class="todo_notes_icon" name="attach-outline"></ion-icon>
-              {{ todo.data.content }}
-            </ion-card-content>
+          <ion-card-content *ngIf="todo.data.content">
+            <ion-icon class="todo_notes_icon" name="attach-outline"></ion-icon>
+            {{ todo.data.content }}
+          </ion-card-content>
 
-            <ion-item lines="none">
-              <img class="todo_favicon" src="https://www.google.com/s2/favicons?domain_url={{todo.data.url}}">
-              <ion-label title="{{todo.data.site || todo.data.url}}">{{todo.data.site || todo.data.url}}</ion-label>
-              <ion-buttons slot="end">
-                <ion-button href="{{todo.data.url}}" target="_blank">
-                  <ion-icon slot="icon-only" name="open-outline"></ion-icon>
-                </ion-button>
-                <ion-button (click)="presentPopover($event, todo)">
-                  <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-item>
+          <ion-item lines="none">
+            <img class="todo_favicon" src="https://www.google.com/s2/favicons?domain_url={{todo.data.url}}">
+            <ion-label title="{{todo.data.site || todo.data.url}}">{{todo.data.site || todo.data.url}}</ion-label>
+            <ion-buttons slot="end">
+              <ion-button href="{{todo.data.url}}" target="_blank">
+                <ion-icon slot="icon-only" name="open-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="presentPopover($event, todo)">
+                <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
 
-          </ion-card>
+        </ion-card>
 
-        </div>
+      </div>
 
-      </ngx-masonry>
-    </ng-container>
+    </ngx-masonry>
+  </ng-container>
 
-  <ion-item *ngIf="collectionTodoOpen && collectionTodos?.length === 0" lines="none">
-    <ion-label>
-      No Items   
-    </ion-label>
-  </ion-item>
+  <ion-card-content *ngIf="collectionTodoOpen && collectionTodos?.length === 0" class="ion-text-center">
+    <p>No Items in this colection.</p>
+    <ion-button (click)="addNewTodo($event)" size="small">Add one</ion-button>
+  </ion-card-content>
 
   <ion-progress-bar *ngIf="collectionTodoOpen && !collectionTodos" type="indeterminate"></ion-progress-bar>
 

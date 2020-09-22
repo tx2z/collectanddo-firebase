@@ -1,3 +1,7 @@
 .collection_card {
   height: 200px;
+
+  &.selected {
+    border: solid 3px var(--ion-color-primary);
+  }
 }
