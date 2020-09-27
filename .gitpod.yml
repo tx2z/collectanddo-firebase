@@ -1,3 +1,13 @@
 tasks:
   - init: npm install && npm run build
     command: npm run start
+
+ports:
+  - port: 4200
+
+vscode:
+  extensions:
+    - ms-vscode.vscode-typescript-tslint-plugin@1.2.2:0nQ3PEEA0NPEt3UcbCYiIQ==
+    - johnpapa.Angular2@9.1.2:uM4PeIXJe98IILNHmOn+nA==
+    - christian-kohler.npm-intellisense@1.2.1:vghMIRDy8/ygZPJWq/9oEQ==
+    - eg2.vscode-npm-script@0.3.11:Np1+d2YoqckGfeIuPylSEw==
