@@ -2,8 +2,8 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: npm install && npm run build
-    command: npm run start
+  - init: npm install -g @ionic/cli && npm install
+    command: ionic serve
 
 ports:
   - port: 4200
