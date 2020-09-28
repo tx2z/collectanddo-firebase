@@ -2,6 +2,7 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - command: envsubst < src/assets/env.template.js > src/assets/env.js
   - command: npm i
 
 ports:
