@@ -2,10 +2,12 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - command: envsubst < src/environments/environment_template.ts > src/environments/environment.ts
+  - command: envsubst < src/environments/environment.prod_template.ts > src/environments/environment.prod.ts
   - command: npm i
 
 ports:
-  - port: 4200
+  - port: 8100
 
 vscode:
   extensions:
