@@ -51,13 +51,8 @@ export class CollectionTodosComponent implements OnInit {
   private getCollectionTodos() {
     this.todosSubscription = this.todoService.getCollectionTodos(this.collection.id).subscribe(
       todos => {
-        this.collectionTodos = todos;
-        if (todos.length) {
-          setTimeout(() => {
-            this.showMasonry = true;
-            this.masonry.reloadItems();
-            this.masonry.layout();
-          }, 500);
+        if (todos[0].data.updated != null) {
+          this.collectionTodos = todos;
         }
       }
     );
@@ -65,7 +60,16 @@ export class CollectionTodosComponent implements OnInit {
 
   private async openCollectionTodos() {
     // Wait for animation to end
-    setTimeout(() => this.getCollectionTodos(), 500);
+    setTimeout(() => {
+      this.getCollectionTodos();
+      // wait until all todos are loaded
+      setTimeout(() => {
+        console.log('reload');
+        this.masonry.reloadItems();
+        this.masonry.layout();
+        this.showMasonry = true;
+      }, 1000);
+    }, 500);
   }
 
   private closeCollectionTodos() {
