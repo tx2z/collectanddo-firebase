@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Collection } from 'src/app/models/collection.model';
 import { TodoService } from 'src/app/services/todo.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { NgxMasonryComponent, NgxMasonryOptions } from 'ngx-masonry';
   templateUrl: './collection-todos.component.html',
   styleUrls: ['./collection-todos.component.scss'],
 })
-export class CollectionTodosComponent implements OnInit {
+export class CollectionTodosComponent implements OnInit, OnChanges {
   @Input() collection: Collection;
   @ViewChild(NgxMasonryComponent) masonry: NgxMasonryComponent;
 
@@ -21,6 +21,10 @@ export class CollectionTodosComponent implements OnInit {
   collectionTodoOpen = false;
   showMasonry = false;
   collectionTodos: Todo[];
+  masonryOptions: NgxMasonryOptions = {
+    columnWidth: 310,
+    fitWidth: true,
+  };
 
   constructor(
     private todoService: TodoService,
@@ -30,11 +34,6 @@ export class CollectionTodosComponent implements OnInit {
   ) { }
 
   ngOnInit() {}
-
-  masonryOptions: NgxMasonryOptions = {
-    columnWidth: 310,
-    fitWidth: true,
-  };
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes.collection.currentValue !== changes.collection.previousValue) {
