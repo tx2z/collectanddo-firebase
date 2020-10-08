@@ -16,13 +16,17 @@ export class CollectPage implements OnInit {
   @ViewChild('colletionsSlider', { static: false }) colletionsSlider: IonSlides;
   openedCollection: Collection;
   cupertinoPane: CupertinoPane;
+  slideOpts: any = {
+    slidesPerView: 'auto',
+    zoom: false,
+    grabCursor: true,
+    mousewheel: true,
+  };
 
   constructor(
     private collectionService: CollectionService,
     private authService: AuthService,
-    ) {
-      
-    }
+    ) {}
 
   openCollection(collection: Collection) {
     this.openedCollection = collection;
@@ -34,13 +38,6 @@ export class CollectPage implements OnInit {
     this.cupertinoPane.backdrop({show: (this.cupertinoPane.currentBreak() === 'middle')});
   }
 
-  slideOpts: any = {
-    slidesPerView: 'auto',
-    zoom: false,
-    grabCursor: true,
-    mousewheel: true,
-  };
-
   async ngOnInit() {
     this.authService.user$.subscribe({
       next: (user) => {
@@ -50,13 +47,11 @@ export class CollectPage implements OnInit {
       },
     });
 
-
-    this.cupertinoPane = new CupertinoPane("ion-footer", 
-      { 
+    this.cupertinoPane = new CupertinoPane('ion-footer',
+      {
         backdrop: true,
         buttonClose: false,
-        breaks: 
-        {
+        breaks: {
           top: { enabled: false },
           middle: { enabled: true, height: 360, bounce: true },
           bottom: { enabled: true, height: 120 },
@@ -64,7 +59,6 @@ export class CollectPage implements OnInit {
         onTransitionEnd: () => this.changeBackdrop()
       });
 
-      this.cupertinoPane.present({ animate: true });
+    this.cupertinoPane.present({ animate: true });
   }
-
 }

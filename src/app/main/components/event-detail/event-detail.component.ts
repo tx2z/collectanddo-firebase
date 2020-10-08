@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserEvent, UserEventData } from 'src/app/models/event.model';
+import { UserEventData } from 'src/app/models/event.model';
 import { ModalController } from '@ionic/angular';
 
 @Component({
