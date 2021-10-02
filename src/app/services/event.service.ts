@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { firestore } from 'firebase/app';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { firestore } from 'firebase/compat/app';
 import { UserEventData } from 'src/app/models/event.model';
 import { map } from 'rxjs/operators';
 

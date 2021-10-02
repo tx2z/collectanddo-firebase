@@ -5,11 +5,11 @@ import {
   QueryDocumentSnapshot,
   AngularFirestoreCollection,
   AngularFirestoreDocument,
-  QueryFn } from '@angular/fire/firestore';
+  QueryFn } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Subscription, Observable, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { firestore } from 'firebase/app';
+import { firestore } from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
