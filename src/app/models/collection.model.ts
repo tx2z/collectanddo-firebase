@@ -1,12 +1,12 @@
 import {DocumentReference } from '@angular/fire/compat/firestore';
-import { firestore } from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
 
 export class CollectionData {
     title: string;
     description?: string;
     type?: string;
-    created?: firebase.firestore.Timestamp | firestore.FieldValue;
-    updated?: firebase.firestore.Timestamp | firestore.FieldValue;
+    created?: firebase.firestore.Timestamp | firebase.firestore.FieldValue;
+    updated?: firebase.firestore.Timestamp | firebase.firestore.FieldValue;
     updatedDesc?: number;
 }
 

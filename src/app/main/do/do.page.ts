@@ -6,6 +6,7 @@ import { EventService } from 'src/app/services/event.service';
 import { Subscription } from 'rxjs';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { EventDetailComponent } from 'src/app/main/components/event-detail/event-detail.component';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-do',

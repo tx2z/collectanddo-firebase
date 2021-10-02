@@ -1,10 +1,11 @@
 import { DocumentReference } from '@angular/fire/compat/firestore';
-import { firestore } from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
+
 
 export class UserEventData {
     title: string;
-    startTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
-    endTime: Date | firebase.firestore.Timestamp | firestore.FieldValue;
+    startTime: Date | firebase.firestore.Timestamp | firebase.firestore.FieldValue;
+    endTime: Date | firebase.firestore.Timestamp | firebase.firestore.FieldValue;
     allDay: boolean;
     id?: string;
 }

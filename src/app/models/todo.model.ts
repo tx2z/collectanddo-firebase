@@ -1,5 +1,6 @@
 import { DocumentReference } from '@angular/fire/compat/firestore';
-import { firestore } from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
+
 
 export class TodoData {
   url: string;
@@ -10,8 +11,8 @@ export class TodoData {
   content?: string;
 
   done?: boolean;
-  created?: firebase.firestore.Timestamp | firestore.FieldValue;
-  updated?: firebase.firestore.Timestamp | firestore.FieldValue;
+  created?: firebase.firestore.Timestamp | firebase.firestore.FieldValue;
+  updated?: firebase.firestore.Timestamp | firebase.firestore.FieldValue;
   updatedDesc?: number;
 }
 
