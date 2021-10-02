@@ -16,7 +16,7 @@
     "@angular/animations": "^12.2.8",
     "@angular/common": "^12.2.8",
     "@angular/core": "^12.2.8",
-    "@angular/fire": "^6.0.3",
+    "@angular/fire": "^7.0.4",
     "@angular/forms": "^12.2.8",
     "@angular/platform-browser": "^12.2.8",
     "@angular/platform-browser-dynamic": "^12.2.8",
@@ -34,16 +34,17 @@
     "cordova-sqlite-storage": "^5.1.0",
     "core-js": "^2.5.4",
     "cupertino-pane": "^1.1.83",
-    "firebase": "^7.22.1",
+    "firebase": "^9.0.0",
     "ionic2-calendar": "^0.6.6",
     "masonry-layout": "^4.2.2",
     "ngx-masonry": "^10.0.6",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "rxfire": "^6.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1202.8",
+    "@angular-devkit/architect": "^0.1200.0",
     "@angular-devkit/build-angular": "^12.2.8",
     "@angular/cli": "^12.2.8",
     "@angular/compiler": "^12.2.8",
@@ -55,10 +56,10 @@
     "@types/jasminewd2": "^2.0.3",
     "@types/node": "^14.11.5",
     "codelyzer": "^6.0.0",
-    "firebase-tools": "^8.12.0",
+    "firebase-tools": "^9.0.0",
     "fuzzy": "^0.1.3",
-    "inquirer": "^6.5.2",
-    "inquirer-autocomplete-prompt": "^1.1.0",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "^6.3.4",
@@ -72,7 +73,8 @@
     "ts-node": "^7.0.0",
     "tslint": "^6.1.3",
     "typescript": "^4.3.5",
-    "webpack": "^4.44.2"
+    "webpack": "^4.44.2",
+    "jsonc-parser": "^3.0.0"
   },
   "description": "An Ionic project",
   "cordova": {

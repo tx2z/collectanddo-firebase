@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, IonInput, IonTextarea, IonSelect, ToastController, IonCheckbox } from '@ionic/angular';
-import { AngularFireFunctions } from '@angular/fire/functions';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { TodoService } from 'src/app/services/todo.service';
 import { TodoData, Todo, HasMetadata } from 'src/app/models/todo.model';
 import { CollectionService } from 'src/app/services/collection.service';

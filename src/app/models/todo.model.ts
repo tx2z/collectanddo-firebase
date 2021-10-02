@@ -1,5 +1,5 @@
-import { DocumentReference } from '@angular/fire/firestore';
-import { firestore } from 'firebase/app';
+import { DocumentReference } from '@angular/fire/compat/firestore';
+import { firestore } from 'firebase/compat/app';
 
 export class TodoData {
   url: string;

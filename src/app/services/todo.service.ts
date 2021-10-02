@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 import { Todo, TodoData } from 'src/app/models/todo.model';
 import { CollectionData } from 'src/app/models/collection.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { firestore } from 'firebase/app';
+import { firestore } from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
