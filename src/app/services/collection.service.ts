@@ -9,7 +9,8 @@ import {
 import { BehaviorSubject, Subscription, Observable, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { firestore } from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
+
 
 @Injectable({
   providedIn: 'root'
@@ -141,7 +142,7 @@ export class CollectionService {
   }
 
   addNewCollection(collection: CollectionData) {
-    const creationDate = firestore.FieldValue.serverTimestamp();
+    const creationDate = firebase.firestore.FieldValue.serverTimestamp();
     this.userRef.collection<CollectionData>('collections').add({
       ...collection,
       created: creationDate,

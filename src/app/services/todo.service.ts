@@ -5,7 +5,7 @@ import { Todo, TodoData } from 'src/app/models/todo.model';
 import { CollectionData } from 'src/app/models/collection.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { firestore } from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,7 @@ export class TodoService {
   }
 
   addTodo(todo: TodoData, collectionID: string) {
-    const creationDate = firestore.FieldValue.serverTimestamp();
+    const creationDate = firebase.firestore.FieldValue.serverTimestamp();
 
     return this.userCollections.doc(collectionID).collection<TodoData>('todos')
       .add({
@@ -60,7 +60,7 @@ export class TodoService {
   }
 
   updateTodo(todo: TodoData, collectionID: string, todoID: string) {
-    const updateDate = firestore.FieldValue.serverTimestamp();
+    const updateDate = firebase.firestore.FieldValue.serverTimestamp();
 
     return this.userCollections.doc(`${collectionID}/todos/${todoID}`)
       .set({
